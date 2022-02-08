@@ -1,4 +1,4 @@
-`timescale 1ns/ 1ps
+`timescale 1ns/ 10ps
 
 module add_32_gate(
 			input wire [31:0] a_in,
