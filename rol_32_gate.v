@@ -3,6 +3,6 @@ module rol_32_gate(
 	input wire [31:0] rotate_nums,
 	output wire [31:0] b_out
 );
-	assign out = ((a_in << (rotate_nums % 32))|(a_in >> (32 - (rotate_nums % 32))));
+	assign b_out = ((a_in << (rotate_nums % 32))|(a_in >> (32 - (rotate_nums % 32))));
 
 endmodule
