@@ -1,16 +1,24 @@
 module div_32_gate(
-			input wire [31:0] a_in,
-			input wire [31:0] b_in,
-			output wire [63:0] z_out
+			input reg [31:0] a_in,
+			input reg [31:0] b_in,
+			output reg [63:0] z_out
 			);	
-			z_out [63:32] = [31:0] empty;
-			z_out [31:0] = 
+			reg top[31:0]  = [31:0] empty;
+			z_out [31:0] = b_in;
 			
 			genvar i;
 			generate
 					for(i = 0; i<64; i = i + 1)
 						begin: gen_loop
-							assign z_out[i] = ((a_in[i])&(b_in[i]));
+						
+							if (negative)
+							being
+							end
+							else 
+							//positive
+							begin
+							end
+							
 						end
 			endgenerate	
 endmodule

@@ -1,7 +1,7 @@
 module and_32_gate(
-			input wire [31:0] a_in,
-			input wire [31:0] b_in,
-			output wire [31:0] c_out
+			input reg [31:0] a_in,
+			input reg [31:0] b_in,
+			output reg [31:0] c_out
 			);
 			
 			
