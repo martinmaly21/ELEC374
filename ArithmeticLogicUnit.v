@@ -9,4 +9,20 @@ module ArithmeticLogicUnit(
 	wire [63:0] division_quotient;
 	wire [63:0] multiplication_result;
 	
+	//TODO: div_32_gate
+	//TODO: multiplication
 	
+	always@(*) begin
+		case(cntrl)
+			11 :  begin
+					//TODO
+					end
+			10 :  begin
+			      //TODO
+					end
+			9 :  begin
+			      //TODO
+					end
+			8 :  begin
+			      //TODO
+					end
