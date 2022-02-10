@@ -26,3 +26,15 @@ module ArithmeticLogicUnit(
 			8 :  begin
 			      //TODO
 					end
+			7 :  begin
+					//TODO
+					end
+			6 :  begin
+			      //TODO
+					end
+			5 :  begin
+			      //TODO
+					end
+			4 :  begin
+			      //TODO
+					end
