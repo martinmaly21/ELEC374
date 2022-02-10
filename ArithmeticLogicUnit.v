@@ -14,27 +14,43 @@ module ArithmeticLogicUnit(
 	
 	always@(*) begin
 		case(cntrl)
-			11 :  begin
+			11  :	begin
+					//TODO
+				    end
+			10  :   begin
+			        //TODO
+				    end
+			9  :    begin
+			        //TODO
+					end
+			8  :    begin
+			        //TODO
+					end
+			7  :    begin
 					//TODO
 					end
-			10 :  begin
-			      //TODO
+			6  :    begin
+			        //TODO
 					end
-			9 :  begin
-			      //TODO
+			5  :    begin
+			        //TODO
 					end
-			8 :  begin
-			      //TODO
+			4  :    begin
+			        //TODO
 					end
-			7 :  begin
-					//TODO
+			3  :    begin
+			        //TODO
 					end
-			6 :  begin
-			      //TODO
+			2  :    begin
+			        //TODO
 					end
-			5 :  begin
-			      //TODO
+			1  :    begin
+			        //TODO
 					end
-			4 :  begin
-			      //TODO
-					end
+			0  :    begin
+			        //TODO
+				    end
+			default : begin end
+		endcase
+	end
+endmodule
