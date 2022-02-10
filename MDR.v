@@ -5,7 +5,6 @@ module MDR (
 	input wire MDRin,
 	input wire [31:0] BusMuxOut,
 	input wire [31:0] Mdatain,
-	output reg [31:0] BusMuxIn,
 	output reg [31:0] MDROut
 );
 //busMuxOut is the input, busMuxIn is output, it is flipped POV the bus
