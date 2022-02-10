@@ -1,4 +1,4 @@
-module ArithmeticLogicUnit(
+module ALU(
 	input wire [31:0] a_in,
 	input wire [31:0] b_in,
 	output reg [31:0] c_lo_out,
@@ -9,7 +9,7 @@ module ArithmeticLogicUnit(
 	wire [63:0] division_quotient;
 	wire [63:0] multiplication_result;
 	
-	//TODO: div_32_gate
+ 	div_32_gate div(a_in, b_in, division_quotient);
 	//TODO: multiplication
 	
 	always@(*) begin
@@ -48,7 +48,7 @@ module ArithmeticLogicUnit(
 			        //TODO
 					end
 			0  :    begin
-			        and_32_gate(a_in, b_in, c_lo_out);
+			        and_32_gate (a_in, b_in, c_lo_out);
 				    end
 			default : begin end
 		endcase
