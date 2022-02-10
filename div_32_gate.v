@@ -1,10 +1,17 @@
 module div_32_gate(
-			input reg [31:0] a_in,
-			input reg [31:0] b_in,
+			input wire [31:0] dividendQ,
+			input wire [31:0] divisorM,
 			output reg [63:0] z_out
 			);	
-			reg top[31:0]  = [31:0] empty;
-			z_out [31:0] = b_in;
+			reg [31:0] top  = [31:0] empty; //HERE
+			reg [31:0] bottom = a_in;
+			
+			reg [64:0] tempAnQ = 0;
+			reg [63:0] tempM = 0;
+			
+			tempAnQ[64:32] = tempAnQ[64:32] + tempM;
+			
+			tempAnQ = {nothing, };
 			
 			genvar i;
 			generate
@@ -21,5 +28,6 @@ module div_32_gate(
 							
 						end
 			endgenerate	
+			z_out <= tempAnQ[63:0];
 endmodule
 				//div, top is remainder, bottom is quotient
