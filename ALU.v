@@ -9,9 +9,9 @@ module ALU(
 	wire [63:0] division_quotient;
 	wire [63:0] multiplication_result;
 	
+	//do we ever refer to 'div' or 'mul'?
  	div_32_gate div(a_in, b_in, division_quotient);
 	mul_32_gate mul(multiplication_result, a_in, b_in);
-	//TODO: multiplication
 	
 	always@(*) begin
 		case(ctrl)
