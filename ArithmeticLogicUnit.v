@@ -48,7 +48,7 @@ module ArithmeticLogicUnit(
 			        //TODO
 					end
 			0  :    begin
-			        //TODO
+			        and_32_gate(a_in, b_in, c_lo_out);
 				    end
 			default : begin end
 		endcase
