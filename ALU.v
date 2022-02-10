@@ -3,52 +3,67 @@ module ALU(
 	input wire [31:0] b_in,
 	output reg [31:0] c_lo_out,
 	output reg [31:0] c_hi_out,
-	input wire [3:0] control //note: will not need to use all 16 values
+	input wire [3:0] ctrl //note: will not need to use all 16 values
 );
 
 	wire [63:0] division_quotient;
 	wire [63:0] multiplication_result;
 	
  	div_32_gate div(a_in, b_in, division_quotient);
+	mul_32_gate mul(multiplication_result, a_in, b_in);
 	//TODO: multiplication
 	
 	always@(*) begin
-		case(cntrl)
+		case(ctrl)
 			11  :	begin
-					//TODO
+						//division stuff
+						c_lo_out = division_quotient[31:0];
+						c_hi_out = division_quotient[63:32];
 				    end
 			10  :   begin
-			        //TODO
+						//multiplication stuff
+						c_lo_out = multiplication_result[31:0];
+						c_hi_out = multiplication_result[63:32];
 				    end
 			9  :    begin
-			        //TODO
+						//rotate right
+						ror_32_gate(a_in, b_in, c_lo_out);
 					end
 			8  :    begin
-			        //TODO
+						//rotate left
+						rol_32_gate(a_in, b_in, c_lo_out);
 					end
 			7  :    begin
-					//TODO
+						//shift right
+						shr_32_gate(a_in, b_in, c_lo_out);
 					end
 			6  :    begin
-			        //TODO
+						//shift left
+						shl_32_gate(a_in, b_in, c_lo_out);
 					end
 			5  :    begin
-			        //TODO
+						//logical not
+						//should we pass b or a?
+						not_32_gate(b_in, c_lo_out);
 					end
 			4  :    begin
-			        //TODO
+						//logical neg
+						//should we pass b or a? 
+			            neg_32_gate(b_in, c_lo_out);
 					end
 			3  :    begin
-			        //TODO
+			            //subtract
+						sub_32_gate(a_in, b_in, c_lo_out);
 					end
 			2  :    begin
-			        //TODO
+			           //add
+					   add_32_gate(a_in, b_in, c_lo_out);
 					end
 			1  :    begin
-			        //TODO
+			           or_32_gate(a_in, b_in, c_lo_out);
 					end
 			0  :    begin
-			        and_32_gate (a_in, b_in, c_lo_out);
+			           and_32_gate (a_in, b_in, c_lo_out);
 				    end
 			default : begin end
 		endcase
