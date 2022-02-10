@@ -1,5 +1,5 @@
 module not_32_gate(
-			input reg [31:0] a_in,
+			input wire [31:0] a_in,
 			output reg [31:0] b_out
 			);
 			

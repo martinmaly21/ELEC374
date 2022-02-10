@@ -4,7 +4,7 @@ module MDR (
 	input wire Read,
 	input wire MDRin,
 	input wire [31:0] BusMuxOut,
-	input wire [31:0] MDRIn,
+	input wire [31:0] Mdatain,
 	output reg [31:0] BusMuxIn,
 	output reg [31:0] MDROut
 );
@@ -15,6 +15,6 @@ module MDR (
 			if(clr == 0)
 			MDROut<= 0;
 			else if(MDRin)
-				MDROut = Read ? MDRIn : BusMuxOut;
+				MDROut = Read ? Mdatain : BusMuxOut;
 		end		
 endmodule
