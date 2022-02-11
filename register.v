@@ -1,8 +1,8 @@
 module Register (
 	input wire clk, 
 	input wire clr,
-	input wire Rin,
 	input wire [31:0] dIn,
+	input wire Rin,
 	output reg [31:0] qOut
 );
 	always@(posedge clk or negedge clr)

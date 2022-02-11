@@ -76,7 +76,7 @@ input PCin, PCout, IRin, Zin, Zhighout, Zlowout, Yin, MARin, MDRin,
  MDRout, Read, HIin, HIout, LOin, LOout;
 
 //mdata 
-input [31:0] Mdatain;
+input [31:0] Mdatain, BusMuxOut;
 
 //inputs for the Bus
 wire [31:0] R0dataOut, R1dataOut,  R2dataOut, R3dataOut, R4dataOut,

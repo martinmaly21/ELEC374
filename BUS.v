@@ -6,8 +6,6 @@ module BUS (R0out, R1out,  R2out, R3out,  R4out, R5out, R6out,
  R10dataOut, R11dataOut, R12dataOut, R13dataOut, R14dataOut, R15dataOut,
  PCdataOut, HIdataOut, LOdataOut,  ZhighdataOut, ZlowdataOut, MDRdataOut,
  InPortdataOut, CSignExtdataOut
-	
-	
 );
 
 ///all inputs
