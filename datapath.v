@@ -77,7 +77,11 @@ module datapath(
     wire [31:0] R0dataOut, R1dataOut,  R2dataOut, R3dataOut, R4dataOut,
     R5dataOut, R6dataOut, R7dataOut, R8dataOut, R9dataOut, R10dataOut,
     R11dataOut, R12dataOut, R13dataOut, R14dataOut, R15dataOut, hidataOut, lodataOut, 
-    zHighDataout, zLowDataout;
+    zHighDataout, zLowDataout, hiDataOut, loDataOut, pcDataOut;
+
+    wire IROut, PCOut;
+
+    wire [31:0] yContents;
 
     //mdata What is this? is there a busmuxoutSignal as well?
     input [31:0] Mdatain, BusMuxOut;
@@ -108,10 +112,10 @@ module datapath(
     Register zHI (Clock, Clear, zOutHi, zHighin, zHighDataout);
     Register zLO (Clock, Clear, zOutLo, zLowin, zLowDataout);
 
-    Register PC (Clock, Clear, BusMuxOut, PCin, );
-    Register IR (Clock, Clear, BusMuxOut, IRin, );
-    Register inPORT (Clock, Clear, BusMuxOut, IRin, );
-    Register Y (Clock, Clear, BusMuxOut, Yin, );
+    Register PC (Clock, Clear, BusMuxOut, PCin, pcDataOut);
+    Register IR (Clock, Clear, BusMuxOut, IRin, IROut);
+    Register inPORT (Clock, Clear, BusMuxOut, IRin, PCOut);
+    Register Y (Clock, Clear, BusMuxOut, Yin, yContents);
 
     //TODO: bus
 
