@@ -54,10 +54,8 @@ module datapath(
     highout,
     lowin,
     lowout,
-    zHighin,
-    zHighout,
-    zLowin,
-    zLowout,
+    Zhighin,
+    Zlowin,
     Cout,
     InPortout
 );
@@ -78,7 +76,7 @@ module datapath(
     wire [31:0] R0dataOut, R1dataOut,  R2dataOut, R3dataOut, R4dataOut,
     R5dataOut, R6dataOut, R7dataOut, R8dataOut, R9dataOut, R10dataOut,
     R11dataOut, R12dataOut, R13dataOut, R14dataOut, R15dataOut, hidataOut, lodataOut, 
-    zHighDataout, zLowDataout, hiDataOut, loDataOut, pcDataOut;
+    ZhighdataOut, ZlowdataOut, hiDataOut, loDataOut, pcDataOut;
 
     wire IROut, PCOut;
 
@@ -110,8 +108,8 @@ module datapath(
     Register HI (Clock, Clear, BusMuxOut, highin, hidataOut);
     Register LO (Clock, Clear, BusMuxOut, lowin, lodataOut);
 
-    Register zHI (Clock, Clear, zOutHi, zHighin, zHighDataout);
-    Register zLO (Clock, Clear, zOutLo, zLowin, zLowDataout);
+    Register zHI (Clock, Clear, zOutHi, Zhighin, ZhighdataOut);
+    Register zLO (Clock, Clear, zOutLo, Zlowin, ZlowdataOut);
 
     Register PC (Clock, Clear, BusMuxOut, PCin, pcDataOut);
     Register IR (Clock, Clear, BusMuxOut, IRin, IROut);
@@ -166,11 +164,11 @@ module datapath(
 	 .HIdataOut(HIdataOut),
 	 .LOdataOut(LOdataOut),
 	 .ZhighdataOut(ZhighdataOut),
-	 .R1dataOut(ZlowdataOut),
-	 .R1dataOut(MDRdataOut),
-	 .R1dataOut(InPortdataOut),
-	 .R1dataOut(CSignExtdataOut),
-	 .R1dataOut(BusMuxOut)
+	 .ZlowdataOut(ZlowdataOut),
+	 .MDRdataOut(MDRdataOut),
+	 .InPortdataOut(InPortdataOut),
+	 .CsignExtdataOut(CSignExtdataOut),
+	 .BusMuxOut(BusMuxOut)
 	 );
 
     ALU alu (
