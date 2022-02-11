@@ -84,22 +84,22 @@ R5dataOut, R6dataOut, R7dataOut, R8dataOut, R9dataOut, R10dataOut,
 R11dataOut, R12dataOut, R13dataOut, R14dataOut, R15dataOut;
 
     //Registers
-    Register R0 (Clock, Clear, BusMuxOut, R0in, R0out);
-    Register R1 (Clock, Clear, BusMuxOut, R1in, R1out);
-    Register R2 (Clock, Clear, BusMuxOut, R2in, R2out);
-    Register R3 (Clock, Clear, BusMuxOut, R3in, R3out);
-    Register R4 (Clock, Clear, BusMuxOut, R4in, R4out);
-    Register R5 (Clock, Clear, BusMuxOut, R5in, R5out);
-    Register R6 (Clock, Clear, BusMuxOut, R6in, R6out);
-    Register R7 (Clock, Clear, BusMuxOut, R7in, R7out);
-    Register R8 (Clock, Clear, BusMuxOut, R8in, R8out);
-    Register R9 (Clock, Clear, BusMuxOut, R9in, R9out);
-    Register R10 (Clock, Clear, BusMuxOut, R10in, R10out);
-    Register R11 (Clock, Clear, BusMuxOut, R11in, R11out);
-    Register R12 (Clock, Clear, BusMuxOut, R12in, R12out);
-    Register R13 (Clock, Clear, BusMuxOut, R13in, R13out);
-    Register R14 (Clock, Clear, BusMuxOut, R14in, R14out);
-    Register R15 (Clock, Clear, BusMuxOut, R15in, R15out);
+    Register R0 (Clock, Clear, BusMuxOut, R0in, R0dataOut);
+    Register R1 (Clock, Clear, BusMuxOut, R1in, R1dataOut);
+    Register R2 (Clock, Clear, BusMuxOut, R2in, R2dataOut);
+    Register R3 (Clock, Clear, BusMuxOut, R3in, R3dataOut);
+    Register R4 (Clock, Clear, BusMuxOut, R4in, R4dataOut);
+    Register R5 (Clock, Clear, BusMuxOut, R5in, R5dataOut);
+    Register R6 (Clock, Clear, BusMuxOut, R6in, R6dataOut);
+    Register R7 (Clock, Clear, BusMuxOut, R7in, R7dataOut);
+    Register R8 (Clock, Clear, BusMuxOut, R8in, R8dataOut);
+    Register R9 (Clock, Clear, BusMuxOut, R9in, R9dataOut);
+    Register R10 (Clock, Clear, BusMuxOut, R10in, R10dataOut);
+    Register R11 (Clock, Clear, BusMuxOut, R11in, R11dataOut);
+    Register R12 (Clock, Clear, BusMuxOut, R12in, R12dataOut);
+    Register R13 (Clock, Clear, BusMuxOut, R13in, R13dataOut);
+    Register R14 (Clock, Clear, BusMuxOut, R14in, R14dataOut);
+    Register R15 (Clock, Clear, BusMuxOut, R15in, R15dataOut);
 
     Register HI (Clock, Clear, BusMuxOut, highin, highout);
     Register LO (Clock, Clear, BusMuxOut, lowin, lowout);
