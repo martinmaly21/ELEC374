@@ -81,7 +81,7 @@ input [31:0] Mdatain, BusMuxOut;
 //inputs for the Bus
 wire [31:0] R0dataOut, R1dataOut,  R2dataOut, R3dataOut, R4dataOut,
 R5dataOut, R6dataOut, R7dataOut, R8dataOut, R9dataOut, R10dataOut,
-R11dataOut, R12dataOut, R13dataOut, R14dataOut, R15dataOut;
+R11dataOut, R12dataOut, R13dataOut, R14dataOut, R15dataOut, hidataOut, lodataOut;
 
     //Registers
     Register R0 (Clock, Clear, BusMuxOut, R0in, R0dataOut);
@@ -101,8 +101,8 @@ R11dataOut, R12dataOut, R13dataOut, R14dataOut, R15dataOut;
     Register R14 (Clock, Clear, BusMuxOut, R14in, R14dataOut);
     Register R15 (Clock, Clear, BusMuxOut, R15in, R15dataOut);
 
-    Register HI (Clock, Clear, BusMuxOut, highin, highout);
-    Register LO (Clock, Clear, BusMuxOut, lowin, lowout);
+    Register HI (Clock, Clear, BusMuxOut, highin, hidataOut);
+    Register LO (Clock, Clear, BusMuxOut, lowin, lodataOut);
 
     //TODO!
     Register Z_HI (Clock, Clear, , zHighin, zHighout);
