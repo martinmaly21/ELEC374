@@ -75,16 +75,13 @@ input R0in, R1in, R2in, R3in, R4in, R5in, R6in, R7in, R8in, R9in,
 input PCin, PCout, IRin, Zin, Zhighout, Zlowout, Yin, MARin, MDRin,
  MDRout, Read, HIin, HIout, LOin, LOout;
 
-//mdata 
+//mdata What is this? is there a busmuxoutSignal as well?
 input [31:0] Mdatain, BusMuxOut;
 
 //inputs for the Bus
 wire [31:0] R0dataOut, R1dataOut,  R2dataOut, R3dataOut, R4dataOut,
 R5dataOut, R6dataOut, R7dataOut, R8dataOut, R9dataOut, R10dataOut,
 R11dataOut, R12dataOut, R13dataOut, R14dataOut, R15dataOut;
-
-//wire [31:0] R1dataOut, R1dataOut, R1dataOut, R1dataOut, R1dataOut, R1dataOut,
-
 
     //Registers
     Register R0 (Clock, Clear, BusMuxOut, R0in, R0out);
