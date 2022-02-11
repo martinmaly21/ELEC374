@@ -108,10 +108,10 @@ module datapath(
     Register zHI (Clock, Clear, zOutHi, zHighin, zHighDataout);
     Register zLO (Clock, Clear, zOutLo, zLowin, zLowDataout);
 
-    Register PC (Clock, Clear, BusMuxOut, , );
-    Register IR (Clock, Clear, BusMuxOut, , );
-    Register inPORT (Clock, Clear, BusMuxOut, , );
-    Register Y (Clock, Clear, BusMuxOut, , );
+    Register PC (Clock, Clear, BusMuxOut, PCin, );
+    Register IR (Clock, Clear, BusMuxOut, IRin, );
+    Register inPORT (Clock, Clear, BusMuxOut, IRin, );
+    Register Y (Clock, Clear, BusMuxOut, Yin, );
 
     //TODO: bus
 
