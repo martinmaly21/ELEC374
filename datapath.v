@@ -61,6 +61,7 @@ module datapath(
     Cout,
     InPortout
 );
+    input[3:0] control;
 
     //register signals
     input R0in, R1in, R2in, R3in, R4in, R5in, R6in, R7in, R8in, R9in,
@@ -119,7 +120,13 @@ module datapath(
 
     //TODO: bus
 
-    //TODO: alu
+    ALU alu (
+        .a_in(yContents),
+        .b_in(BusMuxOut), 
+        .c_lo_out(zOutLo),
+        .c_hi_out(zOutHi),
+        .ctrl(control)
+    )
 
     //TODO: MDR
 
