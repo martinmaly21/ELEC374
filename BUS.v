@@ -55,7 +55,7 @@ always@(*) begin
 	else if (PCout) BusMuxOut <= PCdataOut;
 	else if (MDRout) BusMuxOut <= MDRdataOut;
 	else if (InPortout) BusMuxOut <= InPortdataOut;
-	else if (Cout) BusMuxOut <= CSignExtdataOut;
+	else 	  	 			  BusMuxOut <= CSignExtdataOut;
 end
 
 

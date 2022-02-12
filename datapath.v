@@ -4,9 +4,7 @@ module datapath(
     IRin, 
     Clock, 
     Clear, 
-    BusMuxOut,  
-    Zhighout, 
-    Zlowout, 
+    BusMuxOut,
     Yin, 
     MARin,
     MDRin, 
@@ -77,7 +75,9 @@ module datapath(
     input [31:0] Mdatain, BusMuxOut;
     //ALU 
     input [31:0] Zhighout, Zlowout;
-
+	// Z enable signals from input to datapath TODO
+	// Z values (from ALU)
+	 wire [31:0] alu_hi_dataOut, alu_lo_dataOut;
 
     //inputs for the Bus
     wire [31:0] R0dataOut, R1dataOut,  R2dataOut, R3dataOut, R4dataOut,
@@ -109,9 +109,9 @@ module datapath(
 
     Register HI (Clock, Clear, BusMuxOut, HIin, HIdataOut);
     Register LO (Clock, Clear, BusMuxOut, LOin, LOdataOut);
-
-    Register zHI (Clock, Clear, Zhighout, Zhighin, ZhighdataOut);
-    Register zLO (Clock, Clear, Zlowout, Zlowin, ZlowdataOut);
+	
+    Register zHI (Clock, Clear, alu_hi_dataOut, Zhighin, ZhighdataOut);
+    Register zLO (Clock, Clear, alu_lo_dataOut, Zlowin, ZlowdataOut);
 
     Register PC (Clock, Clear, BusMuxOut, PCin, PCdataOut);
     Register IR (Clock, Clear, BusMuxOut, IRin, IROut);
@@ -169,15 +169,15 @@ module datapath(
 	 .ZlowdataOut(ZlowdataOut),
 	 .MDRdataOut(MDRdataOut),
 	 .InPortdataOut(InPortdataOut),
-	 .CsignExtdataOut(CSignExtdataOut),
+	 .CSignExtdataOut(CSignExtdataOut),
 	 .BusMuxOut(BusMuxOut)
 	 );
 
     ALU alu (
         .a_in(yContents),
         .b_in(BusMuxOut), 
-        .c_lo_out(Zlowout),
-        .c_hi_out(Zhighout),
+        .c_lo_out(alu_lo_dataOut),
+        .c_hi_out(alu_hi_dataOut),
         .ctrl(control)
     );
 
