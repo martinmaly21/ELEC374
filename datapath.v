@@ -4,8 +4,7 @@ module datapath(
     IRin, 
     Clock, 
     Clear, 
-    BusMuxOut, 
-    Zin, 
+    BusMuxOut,  
     Zhighout, 
     Zlowout, 
     Yin, 
@@ -83,8 +82,8 @@ module datapath(
     //inputs for the Bus
     wire [31:0] R0dataOut, R1dataOut,  R2dataOut, R3dataOut, R4dataOut,
     R5dataOut, R6dataOut, R7dataOut, R8dataOut, R9dataOut, R10dataOut,
-    R11dataOut, R12dataOut, R13dataOut, R14dataOut, R15dataOut, hidataOut, lodataOut, 
-    ZhighdataOut, ZlowdataOut, hiDataOut, loDataOut, pcDataOut;
+    R11dataOut, R12dataOut, R13dataOut, R14dataOut, R15dataOut, 
+    ZhighdataOut, ZlowdataOut, HIdataOut, LOdataOut, PCdataOut, MDRdataOut, InPortdataOut, CSignExtdataOut;
 
     wire IROut, PCOut;
 
@@ -108,13 +107,13 @@ module datapath(
     Register R14 (Clock, Clear, BusMuxOut, R14in, R14dataOut);
     Register R15 (Clock, Clear, BusMuxOut, R15in, R15dataOut);
 
-    Register HI (Clock, Clear, BusMuxOut, HIin, hidataOut);
-    Register LO (Clock, Clear, BusMuxOut, LOin, lodataOut);
+    Register HI (Clock, Clear, BusMuxOut, HIin, HIdataOut);
+    Register LO (Clock, Clear, BusMuxOut, LOin, LOdataOut);
 
     Register zHI (Clock, Clear, Zhighout, Zhighin, ZhighdataOut);
     Register zLO (Clock, Clear, Zlowout, Zlowin, ZlowdataOut);
 
-    Register PC (Clock, Clear, BusMuxOut, PCin, pcDataOut);
+    Register PC (Clock, Clear, BusMuxOut, PCin, PCdataOut);
     Register IR (Clock, Clear, BusMuxOut, IRin, IROut);
     Register inPORT (Clock, Clear, BusMuxOut, IRin, PCOut);
     Register Y (Clock, Clear, BusMuxOut, Yin, yContents);

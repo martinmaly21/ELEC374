@@ -8,10 +8,10 @@ module ALU(
 
 	wire [63:0] division_quotient;
 	wire [63:0] multiplication_result;
-	
+	wire [31:0] temp_lo, temp_hi;
 	//do we ever refer to 'div' or 'mul'?
  	div_32_gate div(a_in, b_in, division_quotient);
-	mul_32_gate mul(multiplication_result, a_in, b_in);
+	mul_32_gate mul(a_in, b_in, multiplication_result);
 	
 	always@(*) begin
 		case(ctrl)

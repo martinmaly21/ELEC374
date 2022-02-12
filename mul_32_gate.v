@@ -1,15 +1,13 @@
 module mul_32_gate(
     input wire [31:0] a_in,
     input wire [31:0] b_in,
-    output reg [63:0] c_out
+    output [63:0] c_out
 );
     integer i;
     reg rBit;
     reg [63:0] result_P;
     reg [63:0] b_temporary;
     reg [63:0] b_temporary_negative;
-	 
-	 
 
     always @(a_in,b_in) begin
         rBit = 0;
