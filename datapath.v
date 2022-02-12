@@ -50,14 +50,13 @@ module datapath(
     R14out, 
     R15in, 
     R15out, 
-    highin, 
-    highout,
-    lowin,
-    lowout,
     Zhighin,
     Zlowin,
+	 Zhighout,
+    Zlowout,
     Cout,
-    InPortout
+    InPortout,
+	 control
 );
     input[3:0] control;
 
@@ -66,10 +65,19 @@ module datapath(
     R10in, R11in, R12in, R13in, R14in, R15in, R0out, R1out,  R2out,  
     R3out,  R4out, R5out, R6out, R7out, R8out, R9out, R10out, R11out,
     R12out, R13out, R14out, R15out;
+	 
+	 input Zhighin, Zlowin, Cout, InPortout;
     
     //main
-    input PCin, PCout, IRin, Zin, Zhighout, Zlowout, Yin, MARin, MDRin,
+    input PCin, PCout, IRin, Yin, MARin, MDRin,
     MDRout, Read, HIin, HIout, LOin, LOout;
+	 
+	 input Clock, Clear;
+
+    //mdata What is this? is there a busmuxoutSignal as well?
+    input [31:0] Mdatain, BusMuxOut;
+    //ALU 
+    input [31:0] Zhighout, Zlowout;
 
 
     //inputs for the Bus
@@ -81,11 +89,6 @@ module datapath(
     wire IROut, PCOut;
 
     wire [31:0] yContents;
-
-    //mdata What is this? is there a busmuxoutSignal as well?
-    input [31:0] Mdatain, BusMuxOut;
-    //ALU 
-    input [31:0] zOutHi, zOutLo;
 
     //Registers
     Register R0 (Clock, Clear, BusMuxOut, R0in, R0dataOut);
@@ -105,11 +108,11 @@ module datapath(
     Register R14 (Clock, Clear, BusMuxOut, R14in, R14dataOut);
     Register R15 (Clock, Clear, BusMuxOut, R15in, R15dataOut);
 
-    Register HI (Clock, Clear, BusMuxOut, highin, hidataOut);
-    Register LO (Clock, Clear, BusMuxOut, lowin, lodataOut);
+    Register HI (Clock, Clear, BusMuxOut, HIin, hidataOut);
+    Register LO (Clock, Clear, BusMuxOut, LOin, lodataOut);
 
-    Register zHI (Clock, Clear, zOutHi, Zhighin, ZhighdataOut);
-    Register zLO (Clock, Clear, zOutLo, Zlowin, ZlowdataOut);
+    Register zHI (Clock, Clear, Zhighout, Zhighin, ZhighdataOut);
+    Register zLO (Clock, Clear, Zlowout, Zlowin, ZlowdataOut);
 
     Register PC (Clock, Clear, BusMuxOut, PCin, pcDataOut);
     Register IR (Clock, Clear, BusMuxOut, IRin, IROut);
@@ -174,10 +177,10 @@ module datapath(
     ALU alu (
         .a_in(yContents),
         .b_in(BusMuxOut), 
-        .c_lo_out(zOutLo),
-        .c_hi_out(zOutHi),
+        .c_lo_out(Zlowout),
+        .c_hi_out(Zhighout),
         .ctrl(control)
-    )
+    );
 
     //TODO: MDR
 

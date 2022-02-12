@@ -8,6 +8,8 @@ module mul_32_gate(
     reg [63:0] result_P;
     reg [63:0] b_temporary;
     reg [63:0] b_temporary_negative;
+	 
+	 
 
     always @(a_in,b_in) begin
         rBit = 0;
@@ -15,15 +17,15 @@ module mul_32_gate(
         b_temporary = 64'd0 + b_in;
         b_temporary_negative = 64'd0 - b_in;
 
-        for(i=0;i<32;i+=1) begin
-            if (x[i] != rBit) begin
+        for(i=0;i<32;i= i + 1) begin
+            if (a_in[i] != rBit) begin
                 if (rBit == 1) begin
-                    result_P += (b_temporary << i);
+                    result_P = result_P + (b_temporary << i);
                 end else begin
-                    result_P += (b_temporary_negative << i);
+                    result_P = result_P + (b_temporary_negative << i);
                 end
                 //are ternary operators okay?
-                rBit = (x[i] == 1) ? 1 : 0;
+                rBit = (a_in[i] == 1) ? 1 : 0;
             end
         end
     end

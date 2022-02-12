@@ -35,7 +35,7 @@ module ALU(
 					end
 			7  :    begin
 						//shift right
-						shr_32_gate(a_in, b_in, c_lo_out);
+						b_out[31:0] = a_in>>shift_nums;
 					end
 			6  :    begin
 						//shift left
@@ -57,7 +57,7 @@ module ALU(
 					end
 			2  :    begin
 			           //add
-					   add_32_gate(a_in, b_in, c_lo_out);
+					   //add_32_gate(a_in, b_in, c_lo_out);
 					end
 			1  :    begin
 			           or_32_gate(a_in, b_in, c_lo_out);

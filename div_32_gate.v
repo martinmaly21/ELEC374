@@ -13,7 +13,7 @@ module div_32_gate(
 		quotient_and_remainder_se[64:32] = 0;
 		dividend_se[31:0] = a_dividend;
 
-		for(i=0;i<32;i+=1) begin
+		for(i=0;i<32;i= i + 1) begin
 			dividend_se[32] = dividend_se[31];
 			quotient_and_remainder_se = quotient_and_remainder_se << 1;
 			quotient_and_remainder_se[64:32] = quotient_and_remainder_se[64:32] - a_dividend;
