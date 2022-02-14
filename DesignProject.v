@@ -1,12 +1,18 @@
 // and datapath_tb.v file: <This is the filename> 
 `timescale 1ns/10ps 
-module DesignProject;       
+module DesignProject;  
+    // All variables (that are input to datapath) - must be reg
     reg  PCout, Zlowout, MDRout, R2out, R4out;           // add any other signals to see in your simulation 
     reg  MARin, Zin, PCin, MDRin, IRin, Yin;    
     reg   IncPC, Read, AND, R5in, R2in, R4in; 
     reg  Clock; 
     reg  [31:0] Mdatain;       
- 
+	
+	// States
+	// Manji States: TX
+	// Preparing: Reg_loadXX (put values in registers)
+	// Default: Initialize (all values set to zero)
+	// will need an extra state for mul/div
   parameter   Default = 4’b0000, Reg_load1a = 4’b0001, Reg_load1b = 4’b0010, Reg_load2a = 4’b0011,  
                              Reg_load2b = 4’b0100, Reg_load3a = 4’b0101, Reg_load3b = 4’b0110, T0 = 4’b0111,  
                              T1 = 4’b1000, T2 = 4’b1001, T3 = 4’b1010, T4 = 4’b1011, T5 = 4’b1100; 
@@ -22,10 +28,11 @@ initial
        forever #10 Clock = ~ Clock; 
 end 
  
+ // changing between states
 always @(posedge Clock)  // finite state machine; if clock rising-edge 
    begin 
       case (Present_state) 
-   Default   :  Present_state = Reg_load1a; 
+   Default   :  #40 Present_state = Reg_load1a; // 40 > 10 + 15
 Reg_load1a  :  Present_state = Reg_load1b; 
   Reg_load1b  :  Present_state = Reg_load2a; 
 Reg_load2a  :  Present_state = Reg_load2b; 
@@ -40,21 +47,20 @@ Reg_load3a  :  Present_state = Reg_load3b;
      
        endcase 
    end   
-                                                          
+             
+// what is done in each state				 
 always @(Present_state)  // do the required job in each state 
- 
-12
    begin 
       case (Present_state)               // assert the required signals in each clock cycle 
 Default: begin 
     PCout <= 0;   Zlowout <= 0;   MDRout <= 0;          // initialize the signals 
                              R2out <= 0;   R4out <= 0;   MARin <= 0;   Zin <= 0;   
                              PCin <=0;   MDRin <= 0;   IRin  <= 0;   Yin <= 0;   
-                             IncPC <= 0;   Read <= 0;   AND <= 0; 
+                             IncPC <= 0;   Read <= 0;   AND <= 0; // TODO swap out and with control
                 R5in <= 0; R2in <= 0; R4in <= 0; Mdatain <= 32’h00000000; 
 end 
 Reg_load1a: begin   
-      Mdatain <= 32’h00000022; 
+      Mdatain <= 32’h00000022; // TODO generate hex code for each instruction
       Read = 0; MDRin = 0;                   // the first zero is there for completeness 
     #10 Read <= 1; MDRin <= 1;   
     #15 Read <= 0; MDRin <= 0;    
@@ -83,7 +89,7 @@ end
 end 
  
 T0: begin                                                                                  // see if you need to de-assert these signals 
-      PCout <= 1; MARin <= 1; IncPC <= 1; Zin <= 1;   
+      PCout <= 1; MARin <= 1; IncPC <= 1; Zin <= 1;  // TODO remember to deassert; remember to do #10 for assert and #15 for deassert  
 end 
 T1: begin 
       Zlowout <= 1; PCin <= 1; Read <= 1; MDRin <= 1;   
