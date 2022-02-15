@@ -1,17 +1,9 @@
 
-// TODO LIST
-// 1) Format and replace wrid letters -- DONE
-// 2) Generate Hex Codes --
-// 3) Generate Test Benches for each instruction (note that the only thigns that must change are T0-T5) (split between the two of you)
-	// Think of edge cases; may need to change values laoded into registers (RegloadX states)
-//	4) Test as you go (Or at least the template)
-
-// and datapath_tb.v file: <This is the filename> 
 `timescale 1ns/10ps 
 module DesignProject_tb;  
     // All variables (that are input to datapath) - must be reg
     reg  PCout, Zlowout, MDRout, R2out, R4out;           // add any other signals to see in your simulation 
-    reg  MARin, Zin, PCin, MDRin, IRin, Yin;    
+    reg  MARin, Zlowin, Zhighin, PCin, MDRin, IRin, Yin;    
     reg   IncPC, Read, ctrl, R5in, R2in, R4in; 
     reg  Clock; 
     reg  [31:0] Mdatain;   
@@ -36,17 +28,19 @@ module DesignProject_tb;
  T4 = 4'b1011,
  T5 = 4'b1100;
  
-    reg   [3:0] Present_state = Default; 
+    reg   [4:0] Present_state = Default; //find wtf inc pc is 
  
-Datapath DUT(.PCout(PCout), .Zlowout(Zlowout), .MDRout(MDRout), R2out, R4out, MARin, Zlowin, PCin, MDRin, IRin, Yin, IncPC, Read, ctrl, R5in, 
-R2in, R4in, Clock, Mdatain); 
+datapath DUT(.PCout(PCout), .Zlowout(Zlowout), .MDRout(MDRout), .R2out(R2out), .R4out(R4out), .MARin(MARin), .Zlowin(Zlowin), .Zhighin(Zhighin), .PCin(PCin), .MDRin(MDRin),
+ .IRin(IRin), .Yin(Yin), .IncPC(IncPC), .Read(Read), .ctrl(ctrl), .R5in(R5in), .R2in(R2in), .R4in(R4in), .Clock(Clock), .Mdatain(Mdatain)
+ ); 
  
-// add test logic here 
+// add test logic here
 initial  
     begin 
        Clock = 0; 
        forever #10 Clock = ~ Clock; 
 end 
+
  
  // changing between states
 always @(posedge Clock)  // finite state machine; if clock rising-edge 
@@ -83,7 +77,8 @@ Default: begin
     R2out <= 0; 
 	 R4out <= 0;  
 	 MARin <= 0; 
-	 Zin <= 0;   
+	 Zlowin <= 0;   
+	 Zhighin <= 0;
     PCin <=0;
 	 MDRin <= 0; 
 	 IRin  <= 0;
@@ -128,10 +123,10 @@ end
  
 T0: begin                                                                                  // see if you need to de-assert these signals 
       #10 PCout <= 1; MARin <= 1; IncPC <= 1; Zlowin <= 1;  // TODO  (MAKE SURE ZLOWOUT IS RIGHT) remember to deassert; remember to do #10 for assert and #15 for deassert
-		#15 PCout <= 0; MARin <= 0; IncPC <= 0; Zin <= 0;
+		#15 PCout <= 0; MARin <= 0; IncPC <= 0; Zlowin <= 0;
 end 
 T1: begin 
-		Mdatain <= 32'h4A920000;       // opcode for “and R5, R2, R4” 
+		Mdatain <= 32'h4A920000;       // opcode for “and R5, R2, R4”  01010101 0101 010101 0101010 00000000000000000
   #10 Zlowout <= 1;
 		PCin <= 1;
 		Read <= 1;

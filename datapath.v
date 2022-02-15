@@ -1,6 +1,7 @@
 module datapath(
     PCin, 
     PCout, 
+	 IncPC,
     IRin, 
     Clock, 
     Clear, 
@@ -53,9 +54,9 @@ module datapath(
     Zlowout,
     Cout,
     InPortout,
-	 control
+	 ctrl
 );
-    input[3:0] control;
+    input[3:0] ctrl;
 
     //register signals
     input R0in, R1in, R2in, R3in, R4in, R5in, R6in, R7in, R8in, R9in,
@@ -66,7 +67,7 @@ module datapath(
 	 input Zhighin, Zlowin, Cout, InPortout;
     
     //main
-    input PCin, PCout, IRin, Yin, MARin, MDRin,
+    input PCin, PCout, IncPC, IRin, Yin, MARin, MDRin,
     MDRout, Read, HIin, HIout, LOin, LOout;
 	 
 	 input Clock, Clear;
@@ -178,7 +179,7 @@ module datapath(
         .b_in(BusMuxOut), 
         .c_lo_out(alu_lo_dataOut),
         .c_hi_out(alu_hi_dataOut),
-        .ctrl(control)
+        .ctrl(ctrl)
     );
 
     //TODO: MDR
