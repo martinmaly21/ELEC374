@@ -5,7 +5,7 @@ module DesignProject_tb;
     reg  PCout, Zlowout, MDRout, R2out, R4out;           // add any other signals to see in your simulation 
     reg  MARin, Zlowin, Zhighin, PCin, MDRin, IRin, Yin;    
     reg   IncPC, Read, ctrl, R5in, R2in, R4in; 
-    reg  Clock; 
+    reg  Clock, Clear; 
     reg  [31:0] Mdatain;   
     
 	// States
@@ -31,7 +31,7 @@ module DesignProject_tb;
     reg   [4:0] Present_state = Default; //find wtf inc pc is 
  
 datapath DUT(.PCout(PCout), .Zlowout(Zlowout), .MDRout(MDRout), .R2out(R2out), .R4out(R4out), .MARin(MARin), .Zlowin(Zlowin), .Zhighin(Zhighin), .PCin(PCin), .MDRin(MDRin),
- .IRin(IRin), .Yin(Yin), .IncPC(IncPC), .Read(Read), .ctrl(ctrl), .R5in(R5in), .R2in(R2in), .R4in(R4in), .Clock(Clock), .Mdatain(Mdatain)
+ .IRin(IRin), .Yin(Yin), .IncPC(IncPC), .Read(Read), .ctrl(ctrl), .R5in(R5in), .R2in(R2in), .R4in(R4in), .Clock(Clock), .Mdatain(Mdatain), .Clear(Clear)
  ); 
  
 // add test logic here
@@ -54,11 +54,11 @@ always @(posedge Clock)  // finite state machine; if clock rising-edge
 	Reg_load3a  :#40   Present_state = Reg_load3b; 
 	Reg_load3b  :#40   Present_state = T0; 
 	
-	T0    :#40  Present_state = T1; 
-	T1    :#40  Present_state = T2; 
-	T2    :#40  Present_state = T3; 
-	T3    :#40  Present_state = T4; 
-	T4    :#40  Present_state = T5; 
+	T0    :  Present_state = T1; 
+	T1    :  Present_state = T2; 
+	T2    :  Present_state = T3; 
+	T3    :  Present_state = T4; 
+	T4    :  Present_state = T5; 
      
        endcase 
    end   
@@ -91,6 +91,7 @@ Default: begin
 	 R2in <= 0;
 	 R4in <= 0; 
 	 Mdatain <= 32'h00000000; 
+	 Clear <= 1;
 end 
 Reg_load1a: begin   
       Mdatain <= 32'h00000022; // TODO generate hex code for each instruction
@@ -100,7 +101,7 @@ Reg_load1a: begin
 end 
 Reg_load1b: begin  
     #10 MDRout <= 1; R2in <= 1;   
-    #15 MDRout <= 0; R2in <= 0;     // initialize R2 with the value $22           
+    #25 MDRout <= 0; R2in <= 0;     // initialize R2 with the value $22           
 end 
 Reg_load2a: begin   
     Mdatain <= 32'h00000024;  // value to be put in register
@@ -108,8 +109,8 @@ Reg_load2a: begin
     #15 Read <= 0; MDRin <= 0;       
 end 
 Reg_load2b: begin  
-    #10 MDRout <= 1; R4in <= 1;   
-    #15 MDRout <= 0; R4in <= 0;  // initialize R4 with the value $24           
+    #15 MDRout <= 1; R4in <= 1;   
+    #25 MDRout <= 0; R4in <= 0;  // initialize R4 with the value $24           
 end 
 Reg_load3a: begin   
     Mdatain <= 32'h00000026; 
@@ -127,10 +128,12 @@ T0: begin                                                                       
 end 
 T1: begin 
 		Mdatain <= 32'h4A920000;       // opcode for “and R5, R2, R4”  01010101 0101 010101 0101010 00000000000000000
+		
   #10 Zlowout <= 1;
 		PCin <= 1;
 		Read <= 1;
 		MDRin <= 1;
+		
   #15 Zlowout <= 0;
 		PCin <= 0;
 		Read <= 0;

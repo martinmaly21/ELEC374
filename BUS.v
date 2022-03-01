@@ -31,14 +31,16 @@ input wire [31:0] PCdataOut, HIdataOut, LOdataOut,  ZhighdataOut, ZlowdataOut,
 output reg[31:0] BusMuxOut;
 
 //default Cout?
-always@(*) begin
-	if(R0out) BusMuxOut <= R0dataOut;
+always@(*) begin 
+
+	if(R0out) BusMuxOut = R0dataOut;
+	else if (MDRout) BusMuxOut <= MDRdataOut;
 	else if (R1out) BusMuxOut <= R1dataOut;
-	else if (R2out) BusMuxOut <= R2dataOut;
+	else if (R2out) BusMuxOut = R2dataOut;
 	else if (R3out) BusMuxOut <= R3dataOut;
 	else if (R4out) BusMuxOut <= R4dataOut;
-	else if (R5out) BusMuxOut <= R5dataOut;
-	else if (R6out) BusMuxOut <= R6dataOut;
+	else if (R5out) BusMuxOut = R5dataOut;
+	else if (R6out) BusMuxOut = R6dataOut;
 	else if (R7out) BusMuxOut <= R7dataOut;
 	else if (R8out) BusMuxOut <= R8dataOut;
 	else if (R9out) BusMuxOut <= R9dataOut;
@@ -53,9 +55,9 @@ always@(*) begin
 	else if (Zhighout) BusMuxOut <= ZhighdataOut;
 	else if (Zlowout) BusMuxOut <= ZlowdataOut;
 	else if (PCout) BusMuxOut <= PCdataOut;
-	else if (MDRout) BusMuxOut <= MDRdataOut;
 	else if (InPortout) BusMuxOut <= InPortdataOut;
 	else 	  	 			  BusMuxOut <= CSignExtdataOut;
+	
 end
 
 

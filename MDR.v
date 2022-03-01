@@ -14,6 +14,6 @@ module MDR (
 			if(clr == 0)
 			MDROut<= 0;
 			else if(MDRin)
-				MDROut = Read ? Mdatain : BusMuxOut;
+				MDROut <= Read ? Mdatain : BusMuxOut;
 		end		
 endmodule

@@ -5,7 +5,7 @@ module datapath(
     IRin, 
     Clock, 
     Clear, 
-    BusMuxOut,
+    //BusMuxOut,
     Yin, 
     MARin,
     MDRin, 
@@ -73,12 +73,12 @@ module datapath(
 	 input Clock, Clear;
 
     //mdata What is this? is there a busmuxoutSignal as well?
-    input [31:0] Mdatain, BusMuxOut;
+    input [31:0] Mdatain;
     //ALU 
-    input [31:0] Zhighout, Zlowout;
+    input Zhighout, Zlowout;
 	// Z enable signals from input to datapath TODO
 	// Z values (from ALU)
-	 wire [31:0] alu_hi_dataOut, alu_lo_dataOut;
+	 wire [31:0] alu_hi_dataOut, alu_lo_dataOut, BusMuxOut;
 
     //inputs for the Bus
     wire [31:0] R0dataOut, R1dataOut,  R2dataOut, R3dataOut, R4dataOut,
@@ -118,6 +118,10 @@ module datapath(
     Register IR (Clock, Clear, BusMuxOut, IRin, IROut);
     Register inPORT (Clock, Clear, BusMuxOut, IRin, PCOut);
     Register Y (Clock, Clear, BusMuxOut, Yin, yContents);
+	 
+	// IncPCModule PCCounter (Clock, IncPC, Enable,);
+	 
+
 
     //TODO: bus
 	     //TODO: bus
@@ -183,5 +187,6 @@ module datapath(
     );
 
     //TODO: MDR
+	 MDR memDR (Clock, Clear, Read, MDRin, BusMuxOut, Mdatain, MDRdataOut);
 
 endmodule
