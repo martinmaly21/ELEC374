@@ -59,7 +59,12 @@ set_global_assignment -name EDA_DESIGN_INSTANCE_NAME NA -section_id DesignProjec
 set_global_assignment -name EDA_TEST_BENCH_RUN_SIM_FOR "500 ns" -section_id DesignProject_tb
 set_global_assignment -name EDA_TEST_BENCH_MODULE_NAME DesignProject_tb -section_id DesignProject_tb
 set_global_assignment -name EDA_TEST_BENCH_FILE DesignProject_tb.v -section_id DesignProject_tb
+set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -section_id Top
+set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id Top
+set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top
+set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top
 set_global_assignment -name BDF_FILE DesignProject.bdf
+set_global_assignment -name VERILOG_FILE select_encode_logic.v
 set_global_assignment -name VERILOG_FILE datapath.v
 set_global_assignment -name VERILOG_FILE Register.v
 set_global_assignment -name VERILOG_FILE neg_32_gate.v
@@ -79,7 +84,5 @@ set_global_assignment -name VERILOG_FILE MDR.v
 set_global_assignment -name VERILOG_FILE BUS.v
 set_global_assignment -name VERILOG_FILE DesignProject_tb.v
 set_global_assignment -name VERILOG_FILE IncPCModule.v
-set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -section_id Top
-set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id Top
-set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top
-set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top
+set_global_assignment -name QIP_FILE ram.qip
+set_global_assignment -name HEX_FILE memory.hex

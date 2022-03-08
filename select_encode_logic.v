@@ -21,7 +21,7 @@ module select_encode_logic(
 
 	output wire [15:0] regIn, regOut;
 		
-	input wire [31:0] BusMuxOut;
+	input wire [31:0] IRdataOut;
 	
 	output reg [31:0] CsignExtdataOut;
 		

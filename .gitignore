@@ -47,6 +47,7 @@
 !*.bdf
 !*.vhd
 !*.v
+!*.hex
 !*.ptf
 !*.bsf
 !**/class.ptf
