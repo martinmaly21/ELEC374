@@ -22,7 +22,9 @@ module datapath(
     Zlowout,
     Cout,
     InPortout,
-	 ctrl
+	 ctrl,
+	 inEnableR,
+	 outEnableR
 );
     input[3:0] ctrl;
 	 
@@ -33,6 +35,8 @@ module datapath(
     MDRout, Read, HIin, HIout, LOin, LOout;
 	 
 	 input Clock, Clear;
+	 
+	 input [15:0] inEnableR, outEnableR; //register in and out enables
 
     //mdata What is this? is there a busmuxoutSignal as well?
     input [31:0] Mdatain;
@@ -48,27 +52,39 @@ module datapath(
     R11dataOut, R12dataOut, R13dataOut, R14dataOut, R15dataOut, 
     ZhighdataOut, ZlowdataOut, HIdataOut, LOdataOut, PCdataOut, MDRdataOut, InPortdataOut, CSignExtdataOut;
 
-    wire IROut, PCOut;
+    wire IRdataOut, PCOut;
 
     wire [31:0] yContents;
+	 
+	 wire 	
+	 
+		Gra,
+		Grb,
+		Grc,
+		Rin,
+		Rout,
+		BAout;
+		
+		
+	select_encode_logic encodeLogic(IRdataOut, Gra, Grb, Grc, Rin, Rout, BAout, regIn, regOut,CSignExtdataOut); 
 
     //Registers
 	 //TODO, chnage all reg inputs and outputs ENABLE signal to array thing so it works
-    Register R0 (Clock, Clear, BusMuxOut, R0in, R0dataOut);
-    Register R1 (Clock, Clear, BusMuxOut, R1in, R1dataOut);
-    Register R2 (Clock, Clear, BusMuxOut, R2in, R2dataOut);
-    Register R3 (Clock, Clear, BusMuxOut, R3in, R3dataOut);
-    Register R4 (Clock, Clear, BusMuxOut, R4in, R4dataOut);
-    Register R5 (Clock, Clear, BusMuxOut, R5in, R5dataOut);
-    Register R6 (Clock, Clear, BusMuxOut, R6in, R6dataOut);
-    Register R7 (Clock, Clear, BusMuxOut, R7in, R7dataOut);
-    Register R8 (Clock, Clear, BusMuxOut, R8in, R8dataOut);
-    Register R9 (Clock, Clear, BusMuxOut, R9in, R9dataOut);
-    Register R10 (Clock, Clear, BusMuxOut, R10in, R10dataOut);
-    Register R11 (Clock, Clear, BusMuxOut, R11in, R11dataOut);
-    Register R12 (Clock, Clear, BusMuxOut, R12in, R12dataOut);
-    Register R13 (Clock, Clear, BusMuxOut, R13in, R13dataOut);
-    Register R14 (Clock, Clear, BusMuxOut, R14in, R14dataOut);
+    Register R0 (Clock, Clear, BusMuxOut, inEnableR[0], R0dataOut);
+    Register R1 (Clock, Clear, BusMuxOut, inEnableR[1], R1dataOut);
+    Register R2 (Clock, Clear, BusMuxOut, inEnableR[2], R2dataOut);
+    Register R3 (Clock, Clear, BusMuxOut, inEnableR[3], R3dataOut);
+    Register R4 (Clock, Clear, BusMuxOut, inEnableR[4], R4dataOut);
+    Register R5 (Clock, Clear, BusMuxOut, inEnableR[5], R5dataOut);
+    Register R6 (Clock, Clear, BusMuxOut, inEnableR[6], R6dataOut);
+    Register R7 (Clock, Clear, BusMuxOut, inEnableR[7], R7dataOut);
+    Register R8 (Clock, Clear, BusMuxOut, inEnableR[8], R8dataOut);
+    Register R9 (Clock, Clear, BusMuxOut, inEnableR[9], R9dataOut);
+    Register R10 (Clock, Clear, BusMuxOut, inEnableR[10], R10dataOut);
+    Register R11 (Clock, Clear, BusMuxOut, inEnableR[11], R11dataOut);
+    Register R12 (Clock, Clear, BusMuxOut, inEnableR[12], R12dataOut);
+    Register R13 (Clock, Clear, BusMuxOut, inEnableR[13], R13dataOut);
+    Register R14 (Clock, Clear, BusMuxOut, inEnableR[14], R14dataOut);
 	 //15 is special
     Register R15 (Clock, Clear, BusMuxOut, R15in, R15dataOut);
 
@@ -79,7 +95,8 @@ module datapath(
     Register zLO (Clock, Clear, alu_lo_dataOut, Zlowin, ZlowdataOut);
 
     Register PC (Clock, Clear, BusMuxOut, PCin, PCdataOut);
-    Register IR (Clock, Clear, BusMuxOut, IRin, IROut);
+    Register IR (Clock, Clear, BusMuxOut, IRin, IRdataOut);
+
     Register inPORT (Clock, Clear, BusMuxOut, IRin, PCOut);
     Register Y (Clock, Clear, BusMuxOut, Yin, yContents);
 	 
@@ -90,22 +107,22 @@ module datapath(
     //TODO: bus
 	     //TODO: bus
 	 BUS bus (
-	 .R0out(R0out),
-	 .R1out(R1out),
-	 .R2out(R2out),
-	 .R3out(R3out),
-	 .R4out(R4out),
-	 .R5out(R5out),
-	 .R6out(R6out),
-	 .R7out(R7out),
-	 .R8out(R8out),
-	 .R9out(R9out),
-	 .R10out(R10out),
-	 .R11out(R11out),
-	 .R12out(R12out),
-	 .R13out(R13out),
-	 .R14out(R14out),
-	 .R15out(R15out),
+	 .R0out(outEnableR[0]),
+	 .R1out(outEnableR[1]),
+	 .R2out(outEnableR[2]),
+	 .R3out(outEnableR[3]),
+	 .R4out(outEnableR[4]),
+	 .R5out(outEnableR[5]),
+	 .R6out(outEnableR[6]),
+	 .R7out(outEnableR[7]),
+	 .R8out(outEnableR[8]),
+	 .R9out(outEnableR[9]),
+	 .R10out(outEnableR[10]),
+	 .R11out(outEnableR[11]),
+	 .R12out(outEnableR[12]),
+	 .R13out(outEnableR[13]),
+	 .R14out(outEnableR[14]),
+	 .R15out(outEnableR[15]),
 	 .PCout(PCout),
 	 .Zhighout(Zhighout),
 	 .Zlowout(Zlowout),
