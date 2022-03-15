@@ -5,7 +5,6 @@ module datapath(
     IRin, 
     Clock, 
     Clear, 
-    //BusMuxOut,
     Yin, 
     MARin,
     MDRin, 
@@ -22,8 +21,6 @@ module datapath(
     Cout,
     InPortout,
 	 ctrl,
-	 inEnableR,
-	 outEnableR,
 	 wren,
 	 outPortEnable
 );
@@ -37,7 +34,7 @@ module datapath(
 	 
 	 input Clock, Clear, wren; //wren is write or read for ram
 	 
-	 input [15:0] inEnableR, outEnableR; //register in and out enables
+	 wire [15:0] inEnableR, outEnableR; //register in and out enables
 
     
     wire [31:0] MDRinput, toOutputUnit, fromInputUnit;
@@ -59,6 +56,8 @@ module datapath(
 	 wire [8:0] address;
 
     wire [31:0] yContents;
+	 
+	 input outPortEnable;
 	 
 	 wire 	
 	 
@@ -104,7 +103,7 @@ module datapath(
     Register R13 (Clock, Clear, BusMuxOut, inEnableR[13], R13dataOut);
     Register R14 (Clock, Clear, BusMuxOut, inEnableR[14], R14dataOut);
 	 //15 is special
-    Register R15 (Clock, Clear, BusMuxOut, R15in, R15dataOut);
+    Register R15 (Clock, Clear, BusMuxOut, inEnableR[15], R15dataOut);
 
     Register HI (Clock, Clear, BusMuxOut, HIin, HIdataOut);
     Register LO (Clock, Clear, BusMuxOut, LOin, LOdataOut);
@@ -185,17 +184,19 @@ module datapath(
         .ctrl(ctrl)
     );
 	 
-	RAM ram (
-	address,
-	clock,
-	MDRdataOut,
-	wren,
-	MDRinput);
+//	ram my_ram (
+//	
+//	address,
+//	Clock,
+//	MDRdataOut,
+//	wren,
+//	MDRinput
+//	);
 	
 	//make sure all bless todo, make all wires in data path, check all order with the . in parameter
 	MAR mar (Clock, 
 	  Clear,
-	  busMuxOut,
+	  BusMuxOut,
 	  MARin,
 	  address
 );
@@ -203,7 +204,7 @@ module datapath(
     //TODO: MDR
 	 MDR memDR (Clock, Clear, Read, MDRin, BusMuxOut, MDRinput, MDRdataOut);
 
-	outPort out_port (Clock, Clear, busMuxOut, outPortEnable, toOutputUnit);
+	outPort out_port (Clock, Clear, BusMuxOut, outPortEnable, toOutputUnit);
 	
 	//THIS COULD BE A BIG ERROR! Do we use inPortdataOut OR inPortOut??
 	inPort in_port (Clock, Clear, fromInputUnit, inPortdataOut);

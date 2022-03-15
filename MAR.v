@@ -8,8 +8,8 @@ module MAR (
 	always@(posedge clk or negedge clr)
 		begin
 			if(clr == 0)
-				qOut <= 0;
+				address <= 0;
 			else if(Rin)
-				qOut <= dIn[8:0];
+				address <= dIn[8:0];
 		end		
 endmodule
