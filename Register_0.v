@@ -3,14 +3,11 @@ module Register_0 (
 	input wire clr,
 	input wire [31:0] dIn,
 	input wire Rin,
-	output reg [31:0] qOut,
+	output reg [31:0] R0_data_out,
 	input wire BAout
 );
-	always@(posedge clk or negedge clr)
-		begin
-			if(clr == 0)
-				qOut <= 0;
-			else if(Rin && !BAout)
-				qOut <= dIn;
-		end		
+
+Register R0 (Clock, Clear, BusMuxOut, inEnableR[0], R0dataOut);
+ assign R0_data_out = (BAout) ? 32'd0 : R0dataOut;
+	
 endmodule

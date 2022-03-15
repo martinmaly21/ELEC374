@@ -81,7 +81,7 @@ module datapath(
 
     //Registers
 	 //TODO, chnage all reg inputs and outputs ENABLE signal to array thing so it works
-    Register R0 (Clock, Clear, BusMuxOut, inEnableR[0], R0dataOut);
+    Register_0 R0 (Clock, Clear, BusMuxOut, inEnableR[0], R0dataOut, BAout);
     Register R1 (Clock, Clear, BusMuxOut, inEnableR[1], R1dataOut);
     Register R2 (Clock, Clear, BusMuxOut, inEnableR[2], R2dataOut);
     Register R3 (Clock, Clear, BusMuxOut, inEnableR[3], R3dataOut);
