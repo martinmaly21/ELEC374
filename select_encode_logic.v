@@ -1,5 +1,5 @@
 module select_encode_logic(
-	IRdataOut,
+	IRdataOut, //going into select_encode_logic
 	Gra,
 	Grb,
 	Grc,
@@ -7,8 +7,8 @@ module select_encode_logic(
 	Rout,
 	BAout,
 	regIn,
-	regOut,
-	CSignExtdataOut
+	regOut, //going out of select_encode_logic
+	CSignExtdataOut //going out of select_encode_logic
 	);
 	
 	input wire 	

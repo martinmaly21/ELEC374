@@ -74,8 +74,8 @@ module datapath(
 		  Rin, 
 		  Rout, 
 		  BAout, 
-		  regIn, 
-		  regOut, 
+		  inEnableR, 
+		  outEnableR, 
 		  CSignExtdataOut
 	 ); 
 
