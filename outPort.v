@@ -1,5 +1,4 @@
-module Register 
-	#(parameter VAL = 0)(
+module outPort (
 	input wire clk, 
 	input wire clr,
 	input wire [31:0] dIn,
@@ -13,5 +12,4 @@ module Register
 			else if(Rin)
 				qOut <= dIn;
 		end		
-		initial qOut = VAL;
 endmodule

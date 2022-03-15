@@ -11,7 +11,6 @@ module datapath(
     MDRin, 
     MDRout, 
     Read, 
-    Mdatain, 
     HIin, 
     HIout, 
     LOin, 
@@ -24,7 +23,8 @@ module datapath(
     InPortout,
 	 ctrl,
 	 inEnableR,
-	 outEnableR
+	 outEnableR,
+	 wren
 );
     input[3:0] ctrl;
 	 
@@ -34,12 +34,12 @@ module datapath(
     input PCin, PCout, IncPC, IRin, Yin, MARin, MDRin,
     MDRout, Read, HIin, HIout, LOin, LOout;
 	 
-	 input Clock, Clear;
+	 input Clock, Clear, wren; //wren is write or read for ram
 	 
 	 input [15:0] inEnableR, outEnableR; //register in and out enables
 
-    //mdata What is this? is there a busmuxoutSignal as well?
-    input [31:0] Mdatain;
+    
+    wire [31:0] MDRinput;
     //ALU 
     input Zhighout, Zlowout;
 	// Z enable signals from input to datapath TODO
@@ -53,6 +53,8 @@ module datapath(
     ZhighdataOut, ZlowdataOut, HIdataOut, LOdataOut, PCdataOut, MDRdataOut, InPortdataOut, CSignExtdataOut;
 
     wire IRdataOut, PCOut;
+	 
+	 wire [8:0] address;
 
     wire [31:0] yContents;
 	 
@@ -64,6 +66,9 @@ module datapath(
 		Rin,
 		Rout,
 		BAout;
+		
+
+	//input  reg [7:0] address
 		
 		
 	 select_encode_logic encodeLogic ( 
@@ -177,8 +182,23 @@ module datapath(
         .c_hi_out(alu_hi_dataOut),
         .ctrl(ctrl)
     );
+	 
+	RAM ram (
+	address,
+	clock,
+	MDRdataOut,
+	wren,
+	MDRinput);
+	
+	//make sure all bless todo, make all wires in data path, check all order with the . in parameter
+	MAR mar (Clock, 
+	  Clear,
+	  busMuxOut,
+	  MARin,
+	  address
+);
 
     //TODO: MDR
-	 MDR memDR (Clock, Clear, Read, MDRin, BusMuxOut, Mdatain, MDRdataOut);
+	 MDR memDR (Clock, Clear, Read, MDRin, BusMuxOut, MDRinput, MDRdataOut);
 
 endmodule
