@@ -24,7 +24,8 @@ module datapath(
 	 ctrl,
 	 inEnableR,
 	 outEnableR,
-	 wren
+	 wren,
+	 outPortEnable
 );
     input[3:0] ctrl;
 	 
@@ -39,7 +40,8 @@ module datapath(
 	 input [15:0] inEnableR, outEnableR; //register in and out enables
 
     
-    wire [31:0] MDRinput;
+    wire [31:0] MDRinput, toOutputUnit, fromInputUnit;
+	 
     //ALU 
     input Zhighout, Zlowout;
 	// Z enable signals from input to datapath TODO
@@ -200,5 +202,10 @@ module datapath(
 
     //TODO: MDR
 	 MDR memDR (Clock, Clear, Read, MDRin, BusMuxOut, MDRinput, MDRdataOut);
+
+	outPort out_port (Clock, Clear, busMuxOut, outPortEnable, toOutputUnit);
+	
+	//THIS COULD BE A BIG ERROR! Do we use inPortdataOut OR inPortOut??
+	inPort in_port (Clock, Clear, fromInputUnit, inPortdataOut);
 
 endmodule

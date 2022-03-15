@@ -74,3 +74,6 @@ set_global_assignment -name QIP_FILE ram.qip
 set_global_assignment -name HEX_FILE memory.hex
 set_global_assignment -name VERILOG_FILE Register_0.v
 set_global_assignment -name VERILOG_FILE MAR.v
+set_global_assignment -name VERILOG_FILE CON_FF.v
+set_global_assignment -name VERILOG_FILE outPort.v
+set_global_assignment -name VERILOG_FILE inPort.v
