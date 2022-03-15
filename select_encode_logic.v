@@ -42,8 +42,7 @@ module select_encode_logic(
 	
 		else if(Grc == 1) 
 			tempReg = IRdataOut[18:15];
-	
-	
+			
 		if(Rin == 1) 
 			regIn[tempReg] = 1;
 

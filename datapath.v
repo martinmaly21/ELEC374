@@ -66,7 +66,18 @@ module datapath(
 		BAout;
 		
 		
-	select_encode_logic encodeLogic(IRdataOut, Gra, Grb, Grc, Rin, Rout, BAout, regIn, regOut,CSignExtdataOut); 
+	 select_encode_logic encodeLogic ( 
+	     IRdataOut, 
+		  Gra, 
+		  Grb, 
+		  Grc, 
+		  Rin, 
+		  Rout, 
+		  BAout, 
+		  regIn, 
+		  regOut, 
+		  CSignExtdataOut
+	 ); 
 
     //Registers
 	 //TODO, chnage all reg inputs and outputs ENABLE signal to array thing so it works
