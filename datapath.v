@@ -22,11 +22,19 @@ module datapath(
     InPortout,
 	 ctrl,
 	 wren,
-	 outPortEnable
+	 outPortEnable,
+	 Gra,
+	 Grb,
+ 	 Grc,
+ 	 Rin,
+	 Rout,
+	 BAout,
+	 conInput,
+	 IRout
 );
     input[3:0] ctrl;
 	 
-	 input Zhighin, Zlowin, Cout, InPortout;
+	 input Zhighin, Zlowin, Cout, InPortout, conInput, IRout;
     
     //main
     input PCin, PCout, IncPC, IRin, Yin, MARin, MDRin,
@@ -49,17 +57,19 @@ module datapath(
     wire [31:0] R0dataOut, R1dataOut,  R2dataOut, R3dataOut, R4dataOut,
     R5dataOut, R6dataOut, R7dataOut, R8dataOut, R9dataOut, R10dataOut,
     R11dataOut, R12dataOut, R13dataOut, R14dataOut, R15dataOut, 
-    ZhighdataOut, ZlowdataOut, HIdataOut, LOdataOut, PCdataOut, MDRdataOut, InPortdataOut, CSignExtdataOut;
+    ZhighdataOut, ZlowdataOut, HIdataOut, LOdataOut, PCdataOut, MDRdataOut, InPortdataOut, CSignExtdataOut, IRdataOut;
 
-    wire IRdataOut, PCOut;
+    wire PCOut;
 	 
 	 wire [8:0] address;
 
     wire [31:0] yContents;
+	
+	 wire conOutput;
 	 
 	 input outPortEnable;
 	 
-	 wire 	
+	 input wire 	
 	 
 		Gra,
 		Grb,
@@ -114,7 +124,9 @@ module datapath(
     Register PC (Clock, Clear, BusMuxOut, PCin, PCdataOut);
     Register IR (Clock, Clear, BusMuxOut, IRin, IRdataOut);
 
-    Register inPORT (Clock, Clear, BusMuxOut, IRin, PCOut);
+		wire thisIsUseless;
+		
+    Register inPORT (Clock, Clear, BusMuxOut, thisIsUseless, InPortdataOut);
     Register Y (Clock, Clear, BusMuxOut, Yin, yContents);
 	 
 	// IncPCModule PCCounter (Clock, IncPC, Enable,);
@@ -148,6 +160,7 @@ module datapath(
 	 .LOout(LOout),
 	 .Cout(Cout),
 	 .InPortout(InPortout),
+	 .IRout(IRout),
 	 
 	 .R0dataOut(R0dataOut),
 	 .R1dataOut(R1dataOut),
@@ -173,7 +186,8 @@ module datapath(
 	 .MDRdataOut(MDRdataOut),
 	 .InPortdataOut(InPortdataOut),
 	 .CSignExtdataOut(CSignExtdataOut),
-	 .BusMuxOut(BusMuxOut)
+	 .BusMuxOut(BusMuxOut),
+	 .IRdataOut(IRdataOut)
 	 );
 
     ALU alu (
@@ -201,12 +215,19 @@ module datapath(
 	  address
 );
 
+ CON_FF conFF(
+	IRdataOut[20:19],
+	BusMuxOut,
+	conInput,
+	conOutput
+);
+
     //TODO: MDR
 	 MDR memDR (Clock, Clear, Read, MDRin, BusMuxOut, MDRinput, MDRdataOut);
 
 	outPort out_port (Clock, Clear, BusMuxOut, outPortEnable, toOutputUnit);
 	
 	//THIS COULD BE A BIG ERROR! Do we use inPortdataOut OR inPortOut??
-	inPort in_port (Clock, Clear, fromInputUnit, inPortdataOut);
+	//inPort in_port (Clock, Clear, fromInputUnit, InPortdataOut);
 
 endmodule

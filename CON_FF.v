@@ -12,18 +12,18 @@ always @(posedge conInput)
 
 	if (busMuxOut == 32'd0 && IR_Bits == 0)
 		//branch if equal
-		assign conOutput = 1'b1;
+		 conOutput = 1'b1;
 	else if (busMuxOut != 1'd0 && IR_Bits == 1)
 		//branch if not equal
-		assign conOutput = 1'b1;
+		 conOutput = 1'b1;
 	else if (busMuxOut[31] == 0 && IR_Bits == 2)
 		//branch if greater than
-		assign conOutput = 1'b1;
+		 conOutput = 1'b1;
 	else if (busMuxOut[31] == 1 && IR_Bits == 3)
 		//branch if less than
-		assign conOutput = 1'b1;
+		 conOutput = 1'b1;
 	else 
-		assign conOutput = 1'b0;
+		 conOutput = 1'b0;
 
 	//else return 0	
 

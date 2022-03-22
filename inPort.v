@@ -1,4 +1,4 @@
-module inPort (
+module inPort #(parameter VAL = 0)(
 	input wire clk, 
 	input wire clr,
 	input wire [31:0] inputUnit,
@@ -11,4 +11,5 @@ module inPort (
 			else
 				busMuxInPort <= inputUnit;
 		end
+		initial busMuxInPort = VAL;
 endmodule

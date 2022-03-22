@@ -47,7 +47,9 @@ module BUS (
 	MDRdataOut,
 	InPortdataOut, 
 	CSignExtdataOut, 
-	BusMuxOut
+	BusMuxOut,
+	IRdataOut,
+	IRout
 );
 
 ///all inputs
@@ -58,7 +60,7 @@ input wire R0out, R1out,  R2out, R3out,  R4out, R5out, R6out, R7out,
 R8out, R9out, R10out, R11out, R12out, R13out, R14out, R15out;
 //everything else
 input wire PCout, Zhighout, Zlowout, MDRout, HIout,
- LOout, Cout, InPortout;
+ LOout, Cout, InPortout, IRout;
  
 //actaul contents acting as inputs for the bus mux 
 //registers 
@@ -68,7 +70,7 @@ R11dataOut, R12dataOut, R13dataOut, R14dataOut, R15dataOut;
 
 //everything else
 input wire [31:0] PCdataOut, HIdataOut, LOdataOut,  ZhighdataOut, ZlowdataOut,
- MDRdataOut, InPortdataOut, CSignExtdataOut;
+ MDRdataOut, InPortdataOut, CSignExtdataOut, IRdataOut;
  
 output reg[31:0] BusMuxOut;
 
@@ -98,6 +100,7 @@ always@(*) begin
 	else if (Zlowout) BusMuxOut <= ZlowdataOut;
 	else if (PCout) BusMuxOut <= PCdataOut;
 	else if (InPortout) BusMuxOut <= InPortdataOut;
+	else if (IRout) BusMuxOut <= IRdataOut;
 	else 	  	 			  BusMuxOut <= CSignExtdataOut;
 	
 end
