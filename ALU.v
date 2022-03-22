@@ -21,7 +21,7 @@ module ALU(
 	wire [31:0] and_temp_lo;
 	
  	div_32_gate div(a_in, b_in, division_quotient);
-	mul_32_gate mul(multiplication_result, a_in, b_in);
+	mul_32_gate mul(a_in, b_in, multiplication_result); //weird stuff
 	ror_32_gate ror(a_in, b_in, ror_temp_lo);
 	rol_32_gate rol(a_in, b_in, rol_temp_lo);
 	shr_32_gate shr(a_in, b_in, shr_temp_lo);

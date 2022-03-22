@@ -184,14 +184,14 @@ module datapath(
         .ctrl(ctrl)
     );
 	 
-//	ram my_ram (
-//	
-//	address,
-//	Clock,
-//	MDRdataOut,
-//	wren,
-//	MDRinput
-//	);
+	ram my_ram (
+	
+	address,
+	Clock,
+	MDRdataOut,
+	wren,
+	MDRinput
+	);
 	
 	//make sure all bless todo, make all wires in data path, check all order with the . in parameter
 	MAR mar (Clock, 
