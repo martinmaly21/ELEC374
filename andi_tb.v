@@ -1,7 +1,7 @@
 
 //andi_tb.v
 `timescale 1ns/10ps
-module DesignProject_tb;
+module andi_tb;
    // All variables (that are input to datapath) - must be reg
    reg  PCout, Zlowout, Zhighout, MDRout, R2out, R4out;           // add any other signals to see in your simulation
    reg  MARin, Zlowin, Zhighin, PCin, MDRin, IRin, Yin;
@@ -172,7 +172,7 @@ T3: begin
      #15 Grb <= 0; Rout <= 0; Yin <= 0;
 end
 T4: begin
-     #10 Cout <= 1; ctrl <= 1; Zlowin <= 1;
+     #10 Cout <= 1; ctrl <= 0; Zlowin <= 1;
      #15 Cout <= 0; Zlowin <= 0;
 end
 T5: begin

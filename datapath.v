@@ -98,18 +98,18 @@ module datapath(
     //Registers
 	 //TODO, chnage all reg inputs and outputs ENABLE signal to array thing so it works
     Register_0 R0 (Clock, Clear, BusMuxOut, inEnableR[0], R0dataOut, BAout);
-    Register R1 (Clock, Clear, BusMuxOut, inEnableR[1], R1dataOut);
-    Register R2 (Clock, Clear, BusMuxOut, inEnableR[2], R2dataOut);
-    Register R3 (Clock, Clear, BusMuxOut, inEnableR[3], R3dataOut);
-    Register R4 (Clock, Clear, BusMuxOut, inEnableR[4], R4dataOut);
-    Register R5 (Clock, Clear, BusMuxOut, inEnableR[5], R5dataOut);
-    Register R6 (Clock, Clear, BusMuxOut, inEnableR[6], R6dataOut);
+    Register #(3) R1 (Clock, Clear, BusMuxOut, inEnableR[1], R1dataOut);
+    Register #(4) R2 (Clock, Clear, BusMuxOut, inEnableR[2], R2dataOut);
+    Register #(5) R3 (Clock, Clear, BusMuxOut, inEnableR[3], R3dataOut);
+    Register #(6) R4 (Clock, Clear, BusMuxOut, inEnableR[4], R4dataOut);
+    Register #(7) R5 (Clock, Clear, BusMuxOut, inEnableR[5], R5dataOut);
+    Register #(8) R6 (Clock, Clear, BusMuxOut, inEnableR[6], R6dataOut);
     Register R7 (Clock, Clear, BusMuxOut, inEnableR[7], R7dataOut);
     Register R8 (Clock, Clear, BusMuxOut, inEnableR[8], R8dataOut);
     Register R9 (Clock, Clear, BusMuxOut, inEnableR[9], R9dataOut);
     Register R10 (Clock, Clear, BusMuxOut, inEnableR[10], R10dataOut);
     Register R11 (Clock, Clear, BusMuxOut, inEnableR[11], R11dataOut);
-    Register R12 (Clock, Clear, BusMuxOut, inEnableR[12], R12dataOut);
+    Register #(32) R12 (Clock, Clear, BusMuxOut, inEnableR[12], R12dataOut);
     Register R13 (Clock, Clear, BusMuxOut, inEnableR[13], R13dataOut);
     Register R14 (Clock, Clear, BusMuxOut, inEnableR[14], R14dataOut);
 	 //15 is special
@@ -121,7 +121,7 @@ module datapath(
     Register zHI (Clock, Clear, alu_hi_dataOut, Zhighin, ZhighdataOut);
     Register zLO (Clock, Clear, alu_lo_dataOut, Zlowin, ZlowdataOut);
 
-    Register PC (Clock, Clear, BusMuxOut, PCin, PCdataOut);
+    Register #(1) PC  (Clock, Clear, BusMuxOut, PCin, PCdataOut);
     Register IR (Clock, Clear, BusMuxOut, IRin, IRdataOut);
 
 		wire thisIsUseless;
