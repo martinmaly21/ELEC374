@@ -42,7 +42,8 @@ reg  Clock, Clear;
    T3 = 4'b1010,
    T4 = 4'b1011,
    T5 = 4'b1100,
-    T6 = 4'b1101;
+   T6 = 4'b1101;
+	T7 = 4'b1111;
    reg   [4:0] Present_state = Default;
 datapath DUT(.PCout(PCout), .Zlowout(Zlowout), .Zhighout(Zhighout), .MDRout(MDRout),.MARin(MARin), .Zlowin(Zlowin), .Zhighin(Zhighin), .PCin(PCin),
 .MDRin(MDRin), .IRin(IRin), .Yin(Yin), .IncPC(IncPC), .Read(Read), .ctrl(ctrl), .Clock(Clock), .Clear(Clear), .Gra(Gra),
@@ -83,7 +84,9 @@ always @(posedge Clock)  // finite state machine; if clock rising-edge
    T2    :#40  Present_state = T3;
    T3    :#40  Present_state = T4;
    T4    :#40 Present_state = T5;
-   //T5    :#40 Present_state = T6; //needed for mul and div
+   T5    :#40 Present_state = T6; //needed for mul and div
+	ST6    :#40 Present_state = T7; //needed for mul and div
+	 
 endcase end
 always @(Present_state)  // do the required job in each state
  begin
