@@ -114,36 +114,7 @@ Mdatain <= 32'h00000000;
 
       Clear <= 1;
    end
-	/*
-Reg_load1a: begin
-     Mdatain <= 32'h00000022; // TODO generate hex code for each instruction
-   #10 Read <= 1; MDRin <= 1;
-   #15 Read <= 0; MDRin <= 0;
-end
-Reg_load1b: begin
-   #10 MDRout <= 1; R2in <= 1;
-   #15 MDRout <= 0; R2in <= 0;
-end
-Reg_load2a: begin
-// initialize R2 with the value $22
-   Mdatain <= 32'h00000024;  // value to be put in register
-   #10 Read <= 1; MDRin <= 1;
-   #15 Read <= 0; MDRin <= 0;
-end
-Reg_load2b: begin
-   #10 MDRout <= 1; R4in <= 1;
-   #15 MDRout <= 0; R4in <= 0;  // initialize R4 with the value $24
-end
-Reg_load3a: begin
-   Mdatain <= 32'h00000026;
-   #10 Read <= 1; MDRin <= 1;
-   #15 Read <= 0; MDRin <= 0;
-end
-Reg_load3b: begin
-   #10 MDRout <= 1; R5in <= 1;
-   #15 MDRout <= 0; R5in <= 0;  // initialize R5 with the value $26
-end
-*/
+
 T0: begin
        #10 PCout <= 1; MARin <= 1; IncPC <= 1; Zlowin <= 1;
        #15 PCout <= 0; MARin <= 0; IncPC <= 0; Zlowin <= 0;
