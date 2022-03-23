@@ -1,7 +1,7 @@
 
-//ld_tb.v
+//ldi_tb.v
 `timescale 1ns/10ps
-module ld_tb;
+module ldi_tb;
    // All variables (that are input to datapath) - must be reg
    reg  PCout, Zlowout, Zhighout, MDRout, R2out, R4out;           // add any other signals to see in your simulation
    reg  MARin, Zlowin, Zhighin, PCin, MDRin, IRin, Yin;
@@ -123,7 +123,7 @@ T0: begin
        #15 PCout <= 0; MARin <= 0; IncPC <= 0; Zlowin <= 0;
 end
 T1: begin
-       Mdatain <= 32'h4A90000;
+     //  Mdatain <= 32'h4A90000;
    #10 Zlowout <= 1;
        PCin <= 1;
        Read <= 1;
@@ -140,24 +140,17 @@ T2: begin
        #15 MDRout <= 0; IRin <= 0;
 end
 T3: begin
-       #10 Grb <= 1; Yin <= 1; BAout <= 1;
-       #15 Grb <= 0; Yin <= 0; BAout <= 0;
+       #10 Grb <= 1; BAout <= 1; Yin <= 1; 
+       #15 Grb <= 0; BAout <= 0; Yin <= 0;
 end
 T4: begin
        #10 Cout <= 1; ctrl <= 2; Zlowin <= 1;
        #15 Cout <= 0; Zlowin <= 0;
 end
 T5: begin
-       #10 Zlowout <= 1; MARin <= 1;
-       #15 Zlowout <= 0; MARin <= 0;
-end
-T6: begin
-        #10 Read <= 1; MDRin <= 1;
-        #15 Read <= 0; MDRin <= 0;
-end
-T7: begin
-        #10 MDRout <= 1; Gra <= 1; Rin <= 1;
-        #15 MDRout <= 0; Gra <= 0; Rin <= 0;
+       #10 Zlowout <= 1; Gra <= 1; Rin <= 1;
+       #15 Zlowout <= 0; Gra <= 0; Rin <= 0;
 end
 endcase end
 endmodule
+

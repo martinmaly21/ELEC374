@@ -1,5 +1,5 @@
 
-//andi_tb.v
+//st_tb.v
 `timescale 1ns/10ps
 module DesignProject_tb;
    // All variables (that are input to datapath) - must be reg
@@ -43,7 +43,7 @@ reg  Clock, Clear;
    T4 = 4'b1011,
    T5 = 4'b1100,
    T6 = 4'b1101,
-	T7 = 4'b1111;
+	T7 = 4'b1110;
    reg   [4:0] Present_state = Default;
 datapath DUT(.PCout(PCout), .Zlowout(Zlowout), .Zhighout(Zhighout), .MDRout(MDRout),.MARin(MARin), .Zlowin(Zlowin), .Zhighin(Zhighin), .PCin(PCin),
 .MDRin(MDRin), .IRin(IRin), .Yin(Yin), .IncPC(IncPC), .Read(Read), .ctrl(ctrl), .Clock(Clock), .Clear(Clear), .Gra(Gra),
@@ -84,6 +84,9 @@ always @(posedge Clock)  // finite state machine; if clock rising-edge
    T2    :#40  Present_state = T3;
    T3    :#40  Present_state = T4;
    T4    :#40 Present_state = T5;
+   T5    :#40 Present_state = T6; //needed for mul and div
+	T6    :#40 Present_state = T7; //needed for mul and div
+	 
 endcase end
 always @(Present_state)  // do the required job in each state
  begin
@@ -120,7 +123,7 @@ T0: begin
        #15 PCout <= 0; MARin <= 0; IncPC <= 0; Zlowin <= 0;
 end
 T1: begin
-      // Mdatain <= 32'h4A90000;
+       Mdatain <= 32'h4A90000;
    #10 Zlowout <= 1;
        PCin <= 1;
        Read <= 1;
@@ -132,23 +135,29 @@ T1: begin
        Read <= 0;
        MDRin <= 0;
 end
-//t2 is step 9
 T2: begin
        #10 MDRout <= 1; IRin <= 1;
        #15 MDRout <= 0; IRin <= 0;
 end
-//t3 is step 10
 T3: begin
-     #10 Grb <= 1; Rout <= 1; Yin <= 1;
-     #15 Grb <= 0; Rout <= 0; Yin <= 0;
+       #10 Grb <= 1; Yin <= 1; BAout <= 1;
+       #15 Grb <= 0; Yin <= 0; BAout <= 0;
 end
 T4: begin
-     #10 Cout <= 1; ctrl <= 1; Zlowin <= 1;
-     #15 Cout <= 0; Zlowin <= 0;
+       #10 Cout <= 1; ctrl <= 2; Zlowin <= 1;
+       #15 Cout <= 0; Zlowin <= 0;
 end
 T5: begin
-     #10 Zlowout <= 1; Gra <= 1; Rin <= 1;
-     #15 Zlowout <= 0; Gra <= 0; Rin <= 0;
+       #10 Zlowout <= 1; MARin <= 1;
+       #15 Zlowout <= 0; MARin <= 0;
+end
+T6: begin
+        #10 Read <= 0; MDRin <= 1; Gra <= 0; Rout <= 1; 
+        #15 MDRin <= 0;
+end
+T7: begin
+        #10 MDRout <= 1; Rout <= 1; wren <= 1;
+        #15 MDRout <= 0; Rout <= 0; wren <= 0;
 end
 endcase end
 endmodule

@@ -99,11 +99,11 @@ module datapath(
 	 //TODO, chnage all reg inputs and outputs ENABLE signal to array thing so it works
     Register_0 R0 (Clock, Clear, BusMuxOut, inEnableR[0], R0dataOut, BAout);
     Register #(3) R1 (Clock, Clear, BusMuxOut, inEnableR[1], R1dataOut);
-    Register #(4) R2 (Clock, Clear, BusMuxOut, inEnableR[2], R2dataOut);
-    Register #(5) R3 (Clock, Clear, BusMuxOut, inEnableR[3], R3dataOut);
-    Register #(6) R4 (Clock, Clear, BusMuxOut, inEnableR[4], R4dataOut);
-    Register #(7) R5 (Clock, Clear, BusMuxOut, inEnableR[5], R5dataOut);
-    Register #(8) R6 (Clock, Clear, BusMuxOut, inEnableR[6], R6dataOut);
+    Register #(16) R2 (Clock, Clear, BusMuxOut, inEnableR[2], R2dataOut);
+    Register #(85) R3 (Clock, Clear, BusMuxOut, inEnableR[3], R3dataOut);
+    Register #(2) R4 (Clock, Clear, BusMuxOut, inEnableR[4], R4dataOut);
+    Register #(15) R5 (Clock, Clear, BusMuxOut, inEnableR[5], R5dataOut);
+    Register #(16) R6 (Clock, Clear, BusMuxOut, inEnableR[6], R6dataOut);
     Register R7 (Clock, Clear, BusMuxOut, inEnableR[7], R7dataOut);
     Register R8 (Clock, Clear, BusMuxOut, inEnableR[8], R8dataOut);
     Register R9 (Clock, Clear, BusMuxOut, inEnableR[9], R9dataOut);
