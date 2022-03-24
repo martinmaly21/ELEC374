@@ -1,7 +1,7 @@
 
-//st_tb.v
+//mflo_tb.v
 `timescale 1ns/10ps
-module DesignProject_tb;
+module mflo_tb;
    // All variables (that are input to datapath) - must be reg
    reg  PCout, Zlowout, Zhighout, MDRout, R2out, R4out;           // add any other signals to see in your simulation
    reg  MARin, Zlowin, Zhighin, PCin, MDRin, IRin, Yin;
@@ -135,8 +135,8 @@ T2: begin
        #15 MDRout <= 0; IRin <= 0; PCin <= 0; IncPC <= 0;
 end
 T3: begin
-       #10 Gra <= 1; Rin <= 1;  HIout <= 1;
-       #15 Gra <= 0; Rin <= 0;  HIout <= 0;
+       #10 Gra <= 1; Rin <= 1;  LOout <= 1;
+       #15 Gra <= 0; Rin <= 0;  LOout <= 0;
 end
 
 endcase end

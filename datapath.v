@@ -115,8 +115,8 @@ module datapath(
 	 //15 is special
     Register R15 (Clock, Clear, BusMuxOut, inEnableR[15], R15dataOut);
 
-    Register HI (Clock, Clear, BusMuxOut, HIin, HIdataOut);
-    Register LO (Clock, Clear, BusMuxOut, LOin, LOdataOut);
+    Register #(64) HI (Clock, Clear, BusMuxOut, HIin, HIdataOut);
+    Register #(32) LO (Clock, Clear, BusMuxOut, LOin, LOdataOut);
 	
     Register zHI (Clock, Clear, alu_hi_dataOut, Zhighin, ZhighdataOut);
     Register zLO (Clock, Clear, alu_lo_dataOut, Zlowin, ZlowdataOut);
