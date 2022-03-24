@@ -126,7 +126,7 @@ module datapath(
 
 		wire thisIsUseless;
 		
-    Register inPORT (Clock, Clear, BusMuxOut, thisIsUseless, InPortdataOut);
+    Register #(17) inPORT (Clock, Clear, BusMuxOut, thisIsUseless, InPortdataOut);
     Register Y (Clock, Clear, BusMuxOut, Yin, yContents);
 	 
 	// IncPCModule PCCounter (Clock, IncPC, Enable,);

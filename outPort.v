@@ -1,4 +1,4 @@
-module outPort (
+module outPort(
 	input wire clk, 
 	input wire clr,
 	input wire [31:0] dIn,
@@ -11,5 +11,6 @@ module outPort (
 				qOut <= 0;
 			else if(Rin)
 				qOut <= dIn;
-		end		
+		end
+		
 endmodule
