@@ -1,7 +1,6 @@
 
 //jr_tb.v
 `timescale 1ns/10ps
-module DesignProject_tb;
    // All variables (that are input to datapath) - must be reg
    reg  PCout, Zlowout, Zhighout, MDRout, R2out, R4out;           // add any other signals to see in your simulation
    reg  MARin, Zlowin, Zhighin, PCin, MDRin, IRin, Yin;
@@ -13,15 +12,18 @@ module DesignProject_tb;
 	 Rout,
 	 BAout,
 	 conInput,
+	 conOut,
 	 IRout,
 	 outPortEnable,
 	 wren,
 	 InPortout,
 	 LOin, 
     LOout,
+	 HIin,
+	 HIout,
 	 Cout;
 
-reg  Clock, Clear;
+   reg  Clock, Clear;
    reg  [31:0] Mdatain;
     reg [3:0] ctrl;
    // States
@@ -43,7 +45,7 @@ reg  Clock, Clear;
    T4 = 4'b1011,
    T5 = 4'b1100,
    T6 = 4'b1101,
-	T7 = 4'b1111;
+	T7 = 4'b1110;
    reg   [4:0] Present_state = Default;
 datapath DUT(.PCout(PCout), .Zlowout(Zlowout), .Zhighout(Zhighout), .MDRout(MDRout),.MARin(MARin), .Zlowin(Zlowin), .Zhighin(Zhighin), .PCin(PCin),
 .MDRin(MDRin), .IRin(IRin), .Yin(Yin), .IncPC(IncPC), .Read(Read), .ctrl(ctrl), .Clock(Clock), .Clear(Clear), .Gra(Gra),
@@ -53,12 +55,15 @@ datapath DUT(.PCout(PCout), .Zlowout(Zlowout), .Zhighout(Zhighout), .MDRout(MDRo
 		.Rout(Rout),
 		.BAout(BAout),
 		.conInput(conInput),
+		.conOut(conOut),
 	   .IRout(IRout),
 		.outPortEnable(outPortEnable),
 		.wren(wren),
 		.InPortout(InPortout),
 		.LOin(LOin), 
       .LOout(LOout),
+		.HIin(HIin),
+		.HIout(HIout),
 		.Cout(Cout)
 		
 );
@@ -84,8 +89,7 @@ always @(posedge Clock)  // finite state machine; if clock rising-edge
    T2    :#40  Present_state = T3;
    T3    :#40  Present_state = T4;
    T4    :#40 Present_state = T5;
-   T5    :#40 Present_state = T6; //needed for mul and div
-	T6    :#40 Present_state = T7; //needed for mul and div
+   T5    :#40 Present_state = T6;
 	 
 endcase end
 always @(Present_state)  // do the required job in each state
@@ -117,58 +121,40 @@ Mdatain <= 32'h00000000;
 
       Clear <= 1;
    end
-Reg_load1a: begin
-     Mdatain <= 32'h00000022; // TODO generate hex code for each instruction
-   #10 Read <= 1; MDRin <= 1;
-   #15 Read <= 0; MDRin <= 0;
-end
-Reg_load1b: begin
-   #10 MDRout <= 1; R2in <= 1;
-   #15 MDRout <= 0; R2in <= 0;
-end
-Reg_load2a: begin
-// initialize R2 with the value $22
-   Mdatain <= 32'h00000024;  // value to be put in register
-   #10 Read <= 1; MDRin <= 1;
-   #15 Read <= 0; MDRin <= 0;
-end
-Reg_load2b: begin
-   #10 MDRout <= 1; R4in <= 1;
-   #15 MDRout <= 0; R4in <= 0;  // initialize R4 with the value $24
-end
-Reg_load3a: begin
-   Mdatain <= 32'h00000026;
-   #10 Read <= 1; MDRin <= 1;
-   #15 Read <= 0; MDRin <= 0;
-end
-Reg_load3b: begin
-   #10 MDRout <= 1; R5in <= 1;
-   #15 MDRout <= 0; R5in <= 0;  // initialize R5 with the value $26
-end
+
 T0: begin
        #10 PCout <= 1; MARin <= 1; IncPC <= 1; Zlowin <= 1;
        #15 PCout <= 0; MARin <= 0; IncPC <= 0; Zlowin <= 0;
 end
 T1: begin
-       Mdatain <= 32'h4A90000;
-   #10 Zlowout <= 1;
-       PCin <= 1;
-       Read <= 1;
-       MDRin <= 1;
-		 
-   #15 Zlowout <= 0;
-// opcode
-       PCin <= 0;
-       Read <= 0;
-       MDRin <= 0;
+    #10  Read <= 1; MDRin <= 1; Zlowout <= 1; PCin <= 1;
+   # 15  Read <= 0; MDRin <= 0; Zlowout <= 0; PCin <= 0;
 end
 T2: begin
-       #10 MDRout <= 1; IRin <= 1;
+//MAYBE ADD PACK INC PC AND PC IN 
+       #10 MDRout <= 1; IRin <= 1; 
        #15 MDRout <= 0; IRin <= 0;
 end
 T3: begin
-       #10 Gra <= 1; Rout <= 1; PCin <= 1;
-       #15 Gra <= 0; Rout <= 0; PCin <= 0;
+       #10 Gra <= 1; Rout <= 1;  conInput <= 1;
+       #15 Gra <= 0; Rout <= 0;  conInput <= 0;
+end
+T4: begin
+       #10 PCout <= 1; Yin <= 1;
+       #15 PCout <= 0; Yin <= 0;
+end
+T5: begin
+       #10 Cout <= 1; ctrl <= 2; Zlowin <= 1;
+       #15 Cout <= 0; Zlowin <= 0;
+end
+T6: begin
+       #10 Zlowout <= 1;
+		 
+		 if (conOut) begin
+		 PCIn <= 1;
+		 end
+		
+       #15 Zlowout <= 0; PCIn <= 1;
 end
 
 endcase end
