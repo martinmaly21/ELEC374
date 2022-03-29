@@ -151,16 +151,8 @@ T0: begin
 end
 T1: begin
        Mdatain <= 32'h4A90000;
-   #10 Zlowout <= 1;
-       PCin <= 1;
-       Read <= 1;
-       MDRin <= 1;
-		 
-   #15 Zlowout <= 0;
-// opcode
-       PCin <= 0;
-       Read <= 0;
-       MDRin <= 0;
+   #10 Zlowout <= 1;  PCin <= 1;  Read <= 1; MDRin <= 1;
+   #15 Zlowout <= 0;  PCin <= 0;  Read <= 0; MDRin <= 0;
 end
 T2: begin
        #10 MDRout <= 1; IRin <= 1;
