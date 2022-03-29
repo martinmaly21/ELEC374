@@ -12,6 +12,7 @@ module brzr_tb;
 	 Rout,
 	 BAout,
 	 conInput,
+	 conOut,
 	 IRout,
 	 outPortEnable,
 	 wren,
@@ -54,6 +55,7 @@ datapath DUT(.PCout(PCout), .Zlowout(Zlowout), .Zhighout(Zhighout), .MDRout(MDRo
 		.Rout(Rout),
 		.BAout(BAout),
 		.conInput(conInput),
+		.conOut(conOut),
 	   .IRout(IRout),
 		.outPortEnable(outPortEnable),
 		.wren(wren),
@@ -134,8 +136,8 @@ T2: begin
        #15 MDRout <= 0; IRin <= 0;
 end
 T3: begin
-       #10 Gra <= 1; Rout <= 1;  ConInput <= 1;
-       #15 Gra <= 0; Rout <= 0;  ConInput <= 0;
+       #10 Gra <= 1; Rout <= 1;  conInput <= 1;
+       #15 Gra <= 0; Rout <= 0;  conInput <= 0;
 end
 T4: begin
        #10 PCout <= 1; Yin <= 1;
@@ -146,8 +148,13 @@ T5: begin
        #15 Cout <= 0; Zlowin <= 0;
 end
 T6: begin
-       #10 Zlowout <= 1; //TODO con pcin
-       #15 Zlowout <= 0; //TODO con pcin 
+       #10 Zlowout <= 1;
+		 
+		 if (conOut) begin
+		 PCIn <= 1;
+		 end
+		
+       #15 Zlowout <= 0; PCIn <= 1;
 end
 
 endcase end
