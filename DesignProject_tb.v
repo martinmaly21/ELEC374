@@ -1,6 +1,7 @@
 
-//jr_tb.v
+//DesignProject_tb.v
 `timescale 1ns/10ps
+module DesignProject_tb;
    // All variables (that are input to datapath) - must be reg
    reg  PCout, Zlowout, Zhighout, MDRout, R2out, R4out;           // add any other signals to see in your simulation
    reg  MARin, Zlowin, Zhighin, PCin, MDRin, IRin, Yin;
