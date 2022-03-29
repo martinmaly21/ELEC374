@@ -65,7 +65,7 @@ module datapath(
 
     wire [31:0] yContents;
 	
-	 wire   put;
+	 wire conOutput;
 	 
 	 input outPortEnable;
 	 
