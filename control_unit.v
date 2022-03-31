@@ -17,7 +17,8 @@ module control_unit(
 	PCin, 
 	IRin, 
 	Yin, 
-	Zin, 
+	Zlowin, 
+	Zhighin,
 	MARin, 
 	MDRin, 
 	OutportIn, 
@@ -28,9 +29,17 @@ module control_unit(
 	ouportEnable, 
 	Run, 
 	inPortOut, 
-	Clear
-    input [31:0] IR,
-    input Clock, Reset, Stop
+	Clear,
+	ctrl,
+	IncPC,
+	read,
+	conInput, 
+	outPortEnable, 
+	InPortout,
+	
+	//ADD ALL STUFF FROM BELOW IN THE INPUTS
+   input [31:0] IR,
+   input Clock, Reset, Stop
 );
 
 parameter   Reset_state= 8'b00000000, 
@@ -252,53 +261,40 @@ always @(posedge Clock, posedge Reset, posedge Stop)
             case(Present_state)
                 Reset_state: begin 
                     Run <= 1;
-                    R_enableIn <= 0;
-                    Reset <=1;
+                    Rin <= 0;
+                    //Reset <=1;
                     Clear <= 1;
                     Gra <= 0; 
 					Grb <= 0; 
 					Grc <= 0; 
-					Y_enable <= 0;	
+					Yin <= 0;	
                     PCout<= 0; 
-					ZHighout<=0; 
-					ZLowout<=0; 
+					Zhighout<=0; 
+					Zlowout<=0; 
 					MDRout<=0; 
-					MAR_enable<=0; 
-					PC_enable<=0; 
-					MDR_enable<=0; 
-					IR_enable<=0; 
-					Y_enable<=0; 
+					MARin<=0; 
+					PCin<=0; 
+					MDRin<=0; 
+					IRin<=0; 
+					Yin<=0; 
 					IncPC<=0;
-					MDR_read<=0;
-                    HIin<=0; 
+					read<=0;
+               HIin<=0; 
 					LOin<=0; 
 					HIout<=0; 
 					LOout<=0; 
-					ZHighIn<=0; 
-					ZLowIn<=0; 
+					Zhighin<=0; 
+					Zlowin<=0; 
 					Cout<=0; 
-					RAM_write<=0; 
-                    R_enable<=0; 
+					wren<=0; 
+               Rin<=0; 
 					Rout<=0; 
 					BAout<=0; 
-					CON_enable<=0; 
-					enableInputPort<=0; 
-					OutPort_enable<=0; 
+					conInput<=0; 
+					outPortEnable<=0; 
 					InPortout<=0;
                 end
-				fetch0: begin
-					PCout <= 1; MAR_enable <= 1; 
-				end 
-				fetch1: begin
-					PCout <= 0; MAR_enable <= 0; 
-					MDR_enable <= 1; MDR_read<=1; ZLowout <= 1; 
-				end 
-				fetch2: begin
-					MDR_enable <= 0; MDR_read<=0;ZLowout <= 0; 
-					MDRout <= 1; IR_enable <= 1; PC_enable <= 1; IncPC <= 1;	
-					#21 PC_enable <= 0;
-
-				//----------------------------------
+		
 				fetch0: begin
 					#10 PCout <= 1; MARin <= 1; IncPC <= 1; Zlowin <= 1;
 					#15 PCout <= 0; MARin <= 0; IncPC <= 0; Zlowin <= 0;
@@ -335,7 +331,7 @@ always @(posedge Clock, posedge Reset, posedge Stop)
 				end
 				//skip and not
 				sub4: begin
-					#10 Grc <= 1; Rout <= 1; ctrl <= 3 Zlowin <= 1;
+					#10 Grc <= 1; Rout <= 1; ctrl <= 3; Zlowin <= 1;
 					#15 Grc <= 0; Rout <= 0; Zlowin <= 0;
 				end
 				add4: begin
@@ -350,7 +346,7 @@ always @(posedge Clock, posedge Reset, posedge Stop)
 					#10 Grc <= 1; Rout <= 1; ctrl <= 0; Zlowin <= 1;
 					#15 Grc <= 0; Rout <= 0; Zlowin <= 0;
 				end
-				and5, or5, add5, sub5, shl5, shr5, rol5, ror5, andi5, ori5: begin
+				and5, or5, add5, sub5, shl5, shr5, rol5, ror5, andi5, ori5 : begin
 					#10 Zlowout <= 1; Gra <= 1; Rin <= 1;
 					#15 Zlowout <= 0; Gra <= 0; Rin <= 0;
 				end
@@ -380,7 +376,7 @@ always @(posedge Clock, posedge Reset, posedge Stop)
 					#10 grb <= 1; Rout <= 1;  ctrl <= 4; Zlowin <= 1;
 					#15 grb <= 0; Rout <= 0;  Zlowin <= 0;
 				end
-				not4, neg4: begin
+				not4, neg4 : begin
 					#10 Zlowout <= 1; Gra <= 1; Rin <= 1;
 					#15 Zlowout <= 0; Gra <= 0; Rin <= 0;
 				end
@@ -465,6 +461,7 @@ always @(posedge Clock, posedge Reset, posedge Stop)
 					#15 Zlowout <= 0; PCIn <= 1;
 				end
 				default: begin
+				
 				end
             endcase
         end
