@@ -255,10 +255,36 @@ always @(posedge Clock, posedge Reset, posedge Stop)
                     R_enableIn <= 0;
                     Reset <=1;
                     Clear <= 1;
-                    Gra <= 0; Grb <= 0; Grc <= 0; Y_enable <= 0;	
-                    PCout<= 0; ZHighout<=0; ZLowout<=0; MDRout<=0; MAR_enable<=0; PC_enable<=0; MDR_enable<=0; IR_enable<=0; Y_enable<=0; IncPC<=0; MDR_read<=0;
-                    HIin<=0; LOin<=0; HIout<=0; LOout<=0; ZHighIn<=0; ZLowIn<=0; Cout<=0; RAM_write<=0; 
-                    R_enable<=0; Rout<=0; BAout<=0; CON_enable<=0; enableInputPort<=0; OutPort_enable<=0; InPortout<=0;
+                    Gra <= 0; 
+					Grb <= 0; 
+					Grc <= 0; 
+					Y_enable <= 0;	
+                    PCout<= 0; 
+					ZHighout<=0; 
+					ZLowout<=0; 
+					MDRout<=0; 
+					MAR_enable<=0; 
+					PC_enable<=0; 
+					MDR_enable<=0; 
+					IR_enable<=0; 
+					Y_enable<=0; 
+					IncPC<=0;
+					MDR_read<=0;
+                    HIin<=0; 
+					LOin<=0; 
+					HIout<=0; 
+					LOout<=0; 
+					ZHighIn<=0; 
+					ZLowIn<=0; 
+					Cout<=0; 
+					RAM_write<=0; 
+                    R_enable<=0; 
+					Rout<=0; 
+					BAout<=0; 
+					CON_enable<=0; 
+					enableInputPort<=0; 
+					OutPort_enable<=0; 
+					InPortout<=0;
                 end
             endcase
         end
