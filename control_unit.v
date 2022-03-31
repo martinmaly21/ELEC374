@@ -40,41 +40,28 @@ parameter   Reset_state= 8'b00000000,
 			add3 = 8'b00000100, 
 			add4= 8'b00000101, 
 			add5= 8'b00000110, 
-			sub3 = 8'b00000111, 
-			sub4 = 8'b00001000, 
-			sub5 = 8'b00001001,
-			mul3 = 8'b00001010, 
-			mul4 = 8'b00001011, 
-			mul5 = 8'b00001100, 
-			mul6 = 8'b00001101, 
-			div3 = 8'b00001110, 
-			div4 = 8'b00001111,
-			div5 = 8'b00010000, 
-			div6 = 8'b00010001, 
-			or3 = 8'b00010010, 
-			or4 = 8'b00010011, 
-			or5 = 8'b00010100, 
+			addi3 = 8'b00110111,
+			addi4 = 8'b00111000,
+			addi5 = 8'b00111001,
 			and3 = 8'b00010101, 
 			and4 = 8'b00010110, 
-			and5 = 8'b00010111, 
-			shl3 = 8'b00011000, 
-			shl4 = 8'b00011001, 
-			shl5 = 8'b00011010, 
-			shr3 = 8'b00011011,
-			shr4 = 8'b00011100, 
-			shr5 = 8'b00011101, 
-			rol3 = 8'b00011110, 
-			rol4 = 8'b00011111, 
-			rol5 = 8'b00100000, 
-			ror3 = 8'b00100001,
-			ror4 = 8'b00100010, 
-			ror5 = 8'b00100011, 
-			neg3 = 8'b00100100, 
-			neg4 = 8'b00100101, 
-			neg5 = 8'b00100110, 
-			not3 = 8'b00100111,
-			not4 = 8'b00101000, 
-			not5 = 8'b00101001, 
+			and5 = 8'b00010111,
+			andi3 = 8'b00111010, 
+			andi4 = 8'b00111011, 
+			andi5 = 8'b00111100, 
+			br3 = 8'b01000000, 
+			br4 = 8'b01000001, 
+			br5 = 8'b01000010, 
+			br6 = 8'b01000011, 
+			br7 = 8'b11111111, 
+			div3 = 8'b00001110,
+			div4 = 8'b00001111,
+			div5 = 8'b00010000,
+			div6 = 8'b00010001,
+			in3 = 8'b01001001,
+			jal3 = 8'b01000101,
+			jal4 = 8'b01000110,
+			jr3 = 8'b01000100,
 			ld3 = 8'b00101010, 
 			ld4 = 8'b00101011, 
 			ld5 = 8'b00101100, 
@@ -83,30 +70,59 @@ parameter   Reset_state= 8'b00000000,
 			ldi3 = 8'b00101111, 
 			ldi4 = 8'b00110000, 
 			ldi5 = 8'b00110001, 
+			mflo3 = 8'b01001000,
+			mfhi3 = 8'b01000111,
+			mul3 = 8'b00001010, 
+			mul4 = 8'b00001011, 
+			mul5 = 8'b00001100, 
+			mul6 = 8'b00001101, 
+			neg3 = 8'b00100100, 
+			neg4 = 8'b00100101, 
+			neg5 = 8'b00100110, 
+			not3 = 8'b00100111,
+			not4 = 8'b00101000, 
+			not5 = 8'b00101001, 
+			or3 = 8'b00010010, 
+			or4 = 8'b00010011, 
+			or5 = 8'b00010100,  
+			ori3 = 8'b00111101, 
+			ori4 = 8'b00111110, 
+			ori5 = 8'b00111111,
+			out3 = 8'b01001010,
+			rol3 = 8'b00011110, 
+			rol4 = 8'b00011111, 
+			rol5 = 8'b00100000, 
+			ror3 = 8'b00100001,
+			ror4 = 8'b00100010, 
+			ror5 = 8'b00100011, 
+			shl3 = 8'b00011000, 
+			shl4 = 8'b00011001, 
+			shl5 = 8'b00011010, 
+			shr3 = 8'b00011011,
+			shr4 = 8'b00011100, 
+			shr5 = 8'b00011101, 
 			st3 = 8'b00110010, 
 			st4 = 8'b00110011,
 			st5 = 8'b00110100, 
 			st6 = 8'b00110101, 
 			st7 = 8'b00110110, 
-			addi3 = 8'b00110111,
-			addi4 = 8'b00111000,
-			addi5 = 8'b00111001,
-			andi3 = 8'b00111010, 
-			andi4 = 8'b00111011, 
-			andi5 = 8'b00111100, 
-			ori3 = 8'b00111101, 
-			ori4 = 8'b00111110, 
-			ori5 = 8'b00111111,
-			br3 = 8'b01000000, 
-			br4 = 8'b01000001, 
-			br5 = 8'b01000010, 
-			br6 = 8'b01000011, 
-			br7 = 8'b11111111, 
-			jr3 = 8'b01000100,
-			jal3 = 8'b01000101,
-			jal4 = 8'b01000110,
-			mfhi3 = 8'b01000111,
-			mflo3 = 8'b01001000;
+			sub3 = 8'b00000111, 
+			sub4 = 8'b00001000, 
+			sub5 = 8'b00001001;
+
+
+
+
+
+
+
+
+			
+
+
+			
+			
+
 
 reg		[7:0] Present_state = Reset_state;
 
@@ -155,13 +171,13 @@ always @(posedge Clock, posedge Reset, posedge Stop)
 			addi4				:	Present_state = addi5;
 			addi5 				:	Present_state = fetch0;
 
-            andi3				: 	Present_state = andi4;
-			andi4				: 	Present_state = andi5;
-			andi5 			    :	Present_state = fetch0;
-
 			and3				: 	Present_state = and4;
 			and4				: 	Present_state = and5;
 			and5   		    	:	Present_state = fetch0;
+
+            andi3				: 	Present_state = andi4;
+			andi4				: 	Present_state = andi5;
+			andi5 			    :	Present_state = fetch0;
 			
             br3			    	: 	Present_state = br4;
 			br4			    	: 	Present_state = br5;
