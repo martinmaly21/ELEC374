@@ -88,8 +88,8 @@ parameter   Reset_state= 8'b00000000,
 			st5 = 8'b00110100, 
 			st6 = 8'b00110101, 
 			st7 = 8'b00110110, 
-			addi3 = 8'b00110111, 
-			addi4 = 8'b00111000, 
+			addi3 = 8'b00110111,
+			addi4 = 8'b00111000,
 			addi5 = 8'b00111001,
 			andi3 = 8'b00111010, 
 			andi4 = 8'b00111011, 
@@ -102,10 +102,10 @@ parameter   Reset_state= 8'b00000000,
 			br5 = 8'b01000010, 
 			br6 = 8'b01000011, 
 			br7 = 8'b11111111, 
-			jr3 = 8'b01000100, 
-			jal3 = 8'b01000101, 
-			jal4 = 8'b01000110, 
-			mfhi3 = 8'b01000111, 
+			jr3 = 8'b01000100,
+			jal3 = 8'b01000101,
+			jal4 = 8'b01000110,
+			mfhi3 = 8'b01000111,
 			mflo3 = 8'b01001000;
 
 reg		[7:0] Present_state = Reset_state;
@@ -190,15 +190,15 @@ always @(posedge Clock, posedge Reset, posedge Stop)
 			ldi3				: 	Present_state = ldi4;
 			ldi4				: 	Present_state = ldi5;
 			ldi5 				:	Present_state = fetch0;
-					
-			mul3				: 	Present_state = mul4;
-			mul4				: 	Present_state = mul5;
-			mul5				: 	Present_state = mul6;
-			mul6                :	Present_state = fetch0; 
 
 			mflo3 		     	:	Present_state = fetch0;
 			
 			mfhi3 		    	:	Present_state = fetch0;
+
+			mul3				: 	Present_state = mul4;
+			mul4				: 	Present_state = mul5;
+			mul5				: 	Present_state = mul6;
+			mul6                :	Present_state = fetch0; 
 
             neg3				: 	Present_state = neg4;
 			neg4				: 	Present_state = fetch0;
@@ -216,11 +216,7 @@ always @(posedge Clock, posedge Reset, posedge Stop)
             			
 			out3 				:	Present_state = fetch0;
 
-            sub3				: 	Present_state = sub4;
-			sub4				: 	Present_state = sub5;
-			sub5				:	Present_state = fetch0;
-
-            rol3				: 	Present_state = rol4;
+			rol3				: 	Present_state = rol4;
 			rol4				: 	Present_state = rol5;
 			rol5 				:	Present_state = fetch0;
 			
@@ -228,22 +224,24 @@ always @(posedge Clock, posedge Reset, posedge Stop)
 			ror4				: 	Present_state = ror5;
 			ror5 				:	Present_state = fetch0;
 
-
-            shl3				: 	Present_state = shl4;
+		    shl3				: 	Present_state = shl4;
 			shl4				: 	Present_state = shl5;
 			shl5 				:	Present_state = fetch0;
-			
+	
 			shr3				: 	Present_state = shr4;
 			shr4				: 	Present_state = shr5;
 			shr5 				:	Present_state = fetch0;
-			
-			
+
 			st3			     	: 	Present_state = st4;
 			st4			    	: 	Present_state = st5;
 			st5			    	: 	Present_state = st6;
 			st6			    	: 	Present_state = st7;
 			st7 				:	Present_state = fetch0;
-			
+
+            sub3				: 	Present_state = sub4;
+			sub4				: 	Present_state = sub5;
+			sub5				:	Present_state = fetch0;
+		
 			endcase
 	end
 
