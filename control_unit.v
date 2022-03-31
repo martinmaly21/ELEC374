@@ -110,20 +110,6 @@ parameter   Reset_state= 8'b00000000,
 			sub4 = 8'b00001000, 
 			sub5 = 8'b00001001;
 
-
-
-
-
-
-
-
-			
-
-
-			
-			
-
-
 reg		[7:0] Present_state = Reset_state;
 
 always @(posedge Clock, posedge Reset, posedge Stop) 
