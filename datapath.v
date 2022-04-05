@@ -1,9 +1,14 @@
 module datapath(
-    PCin, 
+	input Clock,
+	Reset,
+	Stop
+
+);
+	 
+	 wire     PCin, 
     PCout, 
 	 IncPC,
     IRin, 
-    Clock, 
     Clear, 
     Yin, 
     MARin,
@@ -20,37 +25,22 @@ module datapath(
     Zlowout,
     Cout,
     InPortout,
-	 ctrl,
 	 wren,
 	 outPortEnable,
-	 Gra,
-	 Grb,
- 	 Grc,
  	 Rin,
 	 Rout,
 	 BAout,
 	 conInput,
-	 IRout
-);
-    input[3:0] ctrl;
+	 IRout;
 	 
-	 input Zhighin, Zlowin, Cout, InPortout, conInput, IRout;
+	 wire [3:0] ctrl;
     
-    //main
-    input PCin, PCout, IncPC, IRin, Yin, MARin, MDRin,
-    MDRout, Read, HIin, HIout, LOin, LOout;
-	 
-	 input Clock, Clear, wren; //wren is write or read for ram
 	 
 	 wire [15:0] inEnableR, outEnableR; //register in and out enables
 
     
     wire [31:0] MDRinput, toOutputUnit, fromInputUnit;
 	 
-    //ALU 
-    input Zhighout, Zlowout;
-	// Z enable signals from input to datapath TODO
-	// Z values (from ALU)
 	 wire [31:0] alu_hi_dataOut, alu_lo_dataOut, BusMuxOut;
 
     //inputs for the Bus
@@ -59,25 +49,16 @@ module datapath(
     R11dataOut, R12dataOut, R13dataOut, R14dataOut, R15dataOut, 
     ZhighdataOut, ZlowdataOut, HIdataOut, LOdataOut, PCdataOut, MDRdataOut, InPortdataOut, CSignExtdataOut, IRdataOut;
 
-    wire PCOut;
+    wire PCOut, Run;
+	 
+	 wire Gra, Grb, Grc; 
+	 
 	 
 	 wire [8:0] address;
 
     wire [31:0] yContents;
 	
-	 wire conOutput;
-	 
-	 input outPortEnable;
-	 
-	 input wire 	
-	 
-		Gra,
-		Grb,
-		Grc,
-		Rin,
-		Rout,
-		BAout;
-		
+	 wire conOutput;		
 
 	//input  reg [7:0] address
 		
@@ -204,7 +185,7 @@ module datapath(
 		.Grc(Grc), 
 		.HIin(HIin), 
 		.LOin(LOin), 
-		.CONin(CONin), 
+		.conInput(conInput), 
 		.PCin(PCin), 
 		.IRin(IRin), 
 		.Yin(Yin), 
@@ -212,26 +193,23 @@ module datapath(
 		.Zhighin(Zhighin),
 		.MARin(MARin), 
 		.MDRin(MDRin), 
-		.OutportIn(OutportIn), 
+		.OutportIn(outPortEnable), 
 		.Cout(Cout), 
 		.BAout(BAout), 
 		.wren(wren), 
-		.enableInport(enableInport), 
-		.ouportEnable(ouportEnable), 
+		.enableInport(thisIsUseless), 
 		.Run(Run), 
-		.inPortOut(inPortOut), 
 		.Clear(Clear),
 		.ctrl(ctrl),
 		.IncPC(IncPC),
-		.read(read),
-		.conInput(conInput), 
+		.read(Read),
 		.outPortEnable(outPortEnable), 
 		.InPortout(InPortout),
-		.IR(IR),
 		.Clock(Clock),
 		.Reset(Reset),
 		.Stop(Stop),
-		.conOut(conOutput)
+		.conOut(conOutput),
+		.IR(IRdataOut)
 	);
 	 
 
@@ -243,14 +221,14 @@ module datapath(
 //        .ctrl(ctrl)
 //    );
 //	 
-//	ram my_ram (
-//	
-//	address,
-//	Clock,
-//	MDRdataOut,
-//	wren,
-//	MDRinput
-//	);
+	ram2 my_ram (
+	
+	address,
+	Clock,
+	MDRdataOut,
+	wren,
+	MDRinput
+	);
 	
 	//make sure all bless todo, make all wires in data path, check all order with the . in parameter
 //	MAR mar (Clock, 

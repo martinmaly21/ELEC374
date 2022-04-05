@@ -13,7 +13,6 @@ module control_unit(
 	Grc, 
 	HIin, 
 	LOin, 
-	CONin, 
 	PCin, 
 	IRin, 
 	Yin, 
@@ -26,16 +25,14 @@ module control_unit(
 	BAout, 
 	wren, 
 	enableInport, 
-	ouportEnable, 
 	Run, 
-	inPortOut, 
+	InPortout, 
 	Clear,
 	ctrl,
 	IncPC,
 	read,
 	conInput, 
 	outPortEnable, 
-	InPortout,
 	conOut,
 	
 	//ADD ALL STUFF FROM BELOW IN THE INPUTS
@@ -130,8 +127,8 @@ always @(posedge Clock, posedge Reset, posedge Stop)
 		if (Stop == 1'b1) Present_state = halt3;
 		else case (Present_state)
 			Reset_state		:	Present_state = fetch0;
-			fetch0			:	Present_state = fetch1;
-			fetch1			:	Present_state = fetch2;
+			fetch0			:	#45 Present_state = fetch1;
+			fetch1			:	#45 Present_state = fetch2;
 			fetch2			:	begin	
     
             @(posedge Clock);
@@ -302,7 +299,7 @@ always @(posedge Clock, posedge Reset, posedge Stop)
 					conOut <=0;	
 					outPortEnable<=0; 
 					InPortout<=0;
-                end
+               end
 		
 				fetch0: begin
 					#10 PCout <= 1; MARin <= 1; IncPC <= 1; Zlowin <= 1;
