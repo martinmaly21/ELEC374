@@ -189,43 +189,88 @@ module datapath(
 	 .BusMuxOut(BusMuxOut),
 	 .IRdataOut(IRdataOut)
 	 );
-
-    ALU alu (
-        .a_in(yContents),
-        .b_in(BusMuxOut), 
-        .c_lo_out(alu_lo_dataOut),
-        .c_hi_out(alu_hi_dataOut),
-        .ctrl(ctrl)
-    );
 	 
-	ram my_ram (
+	 control_unit the_control_unit(
+		PCout, 
+	MDRout, 
+	Zhighout, 
+	Zlowout, 
+	HIout, 
+	LOout, 
+	Rin, 
+	Rout, 
+	Gra, 
+	Grb, 
+	Grc, 
+	HIin, 
+	LOin, 
+	CONin, 
+	PCin, 
+	IRin, 
+	Yin, 
+	Zlowin, 
+	Zhighin,
+	MARin, 
+	MDRin, 
+	OutportIn, 
+	Cout, 
+	BAout, 
+	RAM_write, 
+	enableInport, 
+	ouportEnable, 
+	Run, 
+	inPortOut, 
+	Clear,
+	ctrl,
+	IncPC,
+	read,
+	conInput, 
+	outPortEnable, 
+	InPortout,
 	
-	address,
-	Clock,
-	MDRdataOut,
-	wren,
-	MDRinput
+	
+    IR,
+   Clock,
+ Reset, Stop
 	);
+	 
+
+//    ALU alu (
+//        .a_in(yContents),
+//        .b_in(BusMuxOut), 
+//        .c_lo_out(alu_lo_dataOut),
+//        .c_hi_out(alu_hi_dataOut),
+//        .ctrl(ctrl)
+//    );
+//	 
+//	ram my_ram (
+//	
+//	address,
+//	Clock,
+//	MDRdataOut,
+//	wren,
+//	MDRinput
+//	);
 	
 	//make sure all bless todo, make all wires in data path, check all order with the . in parameter
-	MAR mar (Clock, 
-	  Clear,
-	  BusMuxOut,
-	  MARin,
-	  address
-);
-
- CON_FF conFF(
-	IRdataOut[20:19],
-	BusMuxOut,
-	conInput,
-	conOutput
-);
+//	MAR mar (Clock, 
+//	  Clear,
+//	  BusMuxOut,
+//	  MARin,
+//	  address
+//);
+//
+// CON_FF conFF(
+//	IRdataOut[20:19],
+//	BusMuxOut,
+//	conInput,
+//	conOutput
+//);
 
     //TODO: MDR
-	 MDR memDR (Clock, Clear, Read, MDRin, BusMuxOut, MDRinput, MDRdataOut);
+	// MDR memDR (Clock, Clear, Read, MDRin, BusMuxOut, MDRinput, MDRdataOut);
 
-	outPort out_port (Clock, Clear, BusMuxOut, outPortEnable, toOutputUnit);
+	//outPort out_port (Clock, Clear, BusMuxOut, outPortEnable, toOutputUnit);
 	
 	//THIS COULD BE A BIG ERROR! Do we use inPortdataOut OR inPortOut??
 	//inPort in_port (Clock, Clear, fromInputUnit, InPortdataOut);

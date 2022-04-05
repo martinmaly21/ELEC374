@@ -41,7 +41,7 @@ set_global_assignment -name DEVICE EP3C16F484C6
 set_global_assignment -name TOP_LEVEL_ENTITY datapath
 set_global_assignment -name ORIGINAL_QUARTUS_VERSION 13.1
 set_global_assignment -name PROJECT_CREATION_TIME_DATE "20:11:23  FEBRUARY 06, 2022"
-set_global_assignment -name LAST_QUARTUS_VERSION 13.1
+set_global_assignment -name LAST_QUARTUS_VERSION "13.0 SP1"
 set_global_assignment -name PROJECT_OUTPUT_DIRECTORY output_files
 set_global_assignment -name MIN_CORE_JUNCTION_TEMP 0
 set_global_assignment -name MAX_CORE_JUNCTION_TEMP 85
@@ -63,7 +63,10 @@ set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_RO
 set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top
 set_global_assignment -name EDA_TEST_BENCH_FILE DesignProject_tb.v -section_id DesignProject_tb
 
+set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top
+set_global_assignment -name VERILOG_FILE addTOControlUnit.v
 set_global_assignment -name VERILOG_FILE jal_tb.v
+set_global_assignment -name HEX_FILE memory.hex
 set_global_assignment -name VERILOG_FILE datapath.v
 set_global_assignment -name VERILOG_FILE DesignProject_tb.v
 set_global_assignment -name VERILOG_FILE ram.v
@@ -109,4 +112,3 @@ set_global_assignment -name VERILOG_FILE brzr_tb.v
 set_global_assignment -name VERILOG_FILE brnz_tb.v
 set_global_assignment -name VERILOG_FILE brpl_tb.v
 set_global_assignment -name VERILOG_FILE brmi_tb.v
-set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top
