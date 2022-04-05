@@ -117,13 +117,16 @@ parameter   Reset_state= 8'b00000000,
 			st7 = 8'b01000111, 
 			sub3 = 8'b01001000, 
 			sub4 = 8'b01001001, 
-			sub5 = 8'b01001010;
+			sub5 = 8'b01001010,
+			nop3 = 8'b01001011,
+			halt3 = 8'b01001100;
 
 reg		[7:0] Present_state = Reset_state;
 
 always @(posedge Clock, posedge Reset, posedge Stop) 
 	begin
 		if (Reset == 1'b1) Present_state = Reset_state;
+		if (Stop == 1'b1) Present_state = halt3;
 		else case (Present_state)
 			Reset_state		:	Present_state = fetch0;
 			fetch0			:	Present_state = fetch1;
@@ -155,6 +158,8 @@ always @(posedge Clock, posedge Reset, posedge Stop)
 					5'b10100		:		Present_state=jal3;
 					5'b10111		:		Present_state=mfhi3;
 					5'b11000		:		Present_state=mflo3;
+					5'b11001		:		Present_state=nop3;
+					5'b11010		:		Present_state=halt3;
 				endcase
 			end
             
@@ -252,6 +257,8 @@ always @(posedge Clock, posedge Reset, posedge Stop)
             sub3				: 	Present_state = sub4;
 			sub4				: 	Present_state = sub5;
 			sub5				:	Present_state = fetch0;
+
+			nop3                :  Present_state = fetch0;
 		
 			endcase
 	end
@@ -460,9 +467,13 @@ always @(posedge Clock, posedge Reset, posedge Stop)
 					end
 					#15 Zlowout <= 0; PCIn <= 1;
 				end
+				nop3: begin
+					end
+				halt3: begin
+					Run <= 0;
+					end
 				default: begin
-				
-				end
+					end
             endcase
         end
 endmodule
