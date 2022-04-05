@@ -24,7 +24,7 @@ module control_unit(
 	OutportIn, 
 	Cout, 
 	BAout, 
-	RAM_write, 
+	wren, 
 	enableInport, 
 	ouportEnable, 
 	Run, 
@@ -36,6 +36,7 @@ module control_unit(
 	conInput, 
 	outPortEnable, 
 	InPortout,
+	conOut,
 	
 	//ADD ALL STUFF FROM BELOW IN THE INPUTS
    input [31:0] IR,
@@ -297,7 +298,8 @@ always @(posedge Clock, posedge Reset, posedge Stop)
                Rin<=0; 
 					Rout<=0; 
 					BAout<=0; 
-					conInput<=0; 
+					conInput<=0;
+					conOut <=0;	
 					outPortEnable<=0; 
 					InPortout<=0;
                 end
@@ -307,8 +309,8 @@ always @(posedge Clock, posedge Reset, posedge Stop)
 					#15 PCout <= 0; MARin <= 0; IncPC <= 0; Zlowin <= 0;
 				end
 				fetch1: begin
-					#10 Zlowout <= 1; PCin <= 1; Read <= 1; MDRin <= 1;
-					#15 Zlowout <= 0; PCin <= 0; Read <= 0; MDRin <= 0;
+					#10 Zlowout <= 1; PCin <= 1; read <= 1; MDRin <= 1;
+					#15 Zlowout <= 0; PCin <= 0; read <= 0; MDRin <= 0;
 				end
 				fetch2: begin
 					#10 MDRout <= 1; IRin <= 1;
@@ -376,12 +378,12 @@ always @(posedge Clock, posedge Reset, posedge Stop)
 				end
 				//neg and not
 				not3: begin
-					#10 grb <= 1; Rout <= 1;  ctrl <= 5; Zlowin <= 1;
-					#15 grb <= 0; Rout <= 0;  Zlowin <= 0;
+					#10 Grb <= 1; Rout <= 1;  ctrl <= 5; Zlowin <= 1;
+					#15 Grb <= 0; Rout <= 0;  Zlowin <= 0;
 				end
 				neg3: begin
-					#10 grb <= 1; Rout <= 1;  ctrl <= 4; Zlowin <= 1;
-					#15 grb <= 0; Rout <= 0;  Zlowin <= 0;
+					#10 Grb <= 1; Rout <= 1;  ctrl <= 4; Zlowin <= 1;
+					#15 Grb <= 0; Rout <= 0;  Zlowin <= 0;
 				end
 				not4, neg4 : begin
 					#10 Zlowout <= 1; Gra <= 1; Rin <= 1;
@@ -396,7 +398,7 @@ always @(posedge Clock, posedge Reset, posedge Stop)
 					#10 Cout <= 1; Rout <= 1; ctrl <= 1; Zlowin <= 1;
 					#15 Cout <= 0; Rout <= 0; Zlowin <= 0;
 				end
-				T3: begin
+				ld3: begin
 					#10 Grb <= 1; Yin <= 1; BAout <= 1;
 					#15 Grb <= 0; Yin <= 0; BAout <= 0;
 				end
@@ -409,8 +411,8 @@ always @(posedge Clock, posedge Reset, posedge Stop)
 					#15 Zlowout <= 0; MARin <= 0;
 				end
 				ld6: begin
-					#10 Read <= 1; MDRin <= 1;
-					#15 Read <= 0; MDRin <= 0;
+					#10 read <= 1; MDRin <= 1;
+					#15 read <= 0; MDRin <= 0;
 				end
 				ld7: begin
 					#10 MDRout <= 1; Gra <= 1; Rin <= 1;
@@ -463,9 +465,32 @@ always @(posedge Clock, posedge Reset, posedge Stop)
 				br6: begin
 					#10 Zlowout <= 1;
 					if (conOut) begin
-					PCIn <= 1;
+					PCin <= 1;
 					end
-					#15 Zlowout <= 0; PCIn <= 1;
+					#15 Zlowout <= 0; PCin <= 1;
+				end
+				st3: begin
+						#10 Grb <= 1; BAout <= 1;Yin <= 1;
+						#15 Grb <= 0; BAout <= 0;Yin <= 0;
+				end
+
+				st4: begin
+						#10 Cout <=1; Zhighin <= 1;  Zlowin <= 1;
+						#15 Cout <=1; Zhighin <= 1;  Zlowin <= 1;
+				end
+
+				st5: begin
+						#10 Zlowin <= 1;MARin<=1;
+						#15 Zlowin <= 1;MARin<=1;
+				end
+				st6: begin
+					   #10 read <= 0; Gra <= 1; Rout <= 1; MDRin <= 1;
+						#15 read <= 0; Gra <= 1; Rout <= 1; MDRin <= 1;
+
+				end
+				st7: begin
+					#10 MDRout <= 1; wren <= 1;  
+					#15 MDRout <= 1; wren <= 1; 	
 				end
 				nop3: begin
 					end

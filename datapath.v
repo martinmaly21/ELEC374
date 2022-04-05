@@ -215,7 +215,7 @@ module datapath(
 		.OutportIn(OutportIn), 
 		.Cout(Cout), 
 		.BAout(BAout), 
-		.RAM_write(RAM_write), 
+		.wren(wren), 
 		.enableInport(enableInport), 
 		.ouportEnable(ouportEnable), 
 		.Run(Run), 
@@ -230,7 +230,8 @@ module datapath(
 		.IR(IR),
 		.Clock(Clock),
 		.Reset(Reset),
-		.Stop(Stop)
+		.Stop(Stop),
+		.conOut(conOutput)
 	);
 	 
 

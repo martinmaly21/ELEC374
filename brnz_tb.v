@@ -152,10 +152,10 @@ T6: begin
        #10 Zlowout <= 1;
 		 
 		 if (conOut) begin
-		 PCIn <= 1;
+		 PCin <= 1;
 		 end
 		
-       #15 Zlowout <= 0; PCIn <= 1;
+       #15 Zlowout <= 0; PCin <= 1;
 end
 
 endcase end
